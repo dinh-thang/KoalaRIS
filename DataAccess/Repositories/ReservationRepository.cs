@@ -1,7 +1,7 @@
 ﻿namespace DataAccess.Repositories
 {
-    public class OrderRepository
+    public class ReservationRepository 
     {
-    
+        
     }
 }

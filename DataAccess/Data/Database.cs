@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Entities.Menu
+namespace DataAccess.Data
 {
-    internal class Menu
+    internal class Database
     {
     }
 }

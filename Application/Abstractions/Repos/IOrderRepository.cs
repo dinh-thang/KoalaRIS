@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Entities.Menu
+namespace Application.Abstractions.Repos
 {
-    internal class Menu
+    internal interface IOrderRepository
     {
     }
 }
