@@ -1,12 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Entities.Auth
+﻿namespace Application.Entities.Auth
 {
-    internal class Account
+    public class Account
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = "";
+        public string Email { get; private set; } = "";
+        public int PhoneNumber { get; private set; }
+        public AccountType AccountType { get; init; } 
+
+        public Account(string name, string email, int phoneNumber, AccountType accountType)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            SetEmail(email);
+            SetPhoneNumber(phoneNumber);
+            AccountType = accountType;
+        }
+
+        public void SetEmail(string email) 
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetPhoneNumber(int phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

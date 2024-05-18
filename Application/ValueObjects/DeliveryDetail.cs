@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.ValueObjects
+﻿namespace Application.ValueObjects
 {
-    internal class DeliveryDetail
+    public record class DeliveryDetail
     {
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public int State {  get; set; }
+        public string Country { get; set; }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Entities.Booking
+﻿namespace Application.Entities.Booking
 {
-    internal class Reservation
+    public class Reservation
     {
+        public Guid Id { get; set; }
+
+
+        public Reservation()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

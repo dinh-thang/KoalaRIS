@@ -1,12 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Entities.Ordering
+﻿namespace Application.Entities.Ordering
 {
-    internal class Cart
+    public class Cart
     {
+        public Guid Id { get; set; }
+        public IList<Item> Items { get; set; }
+
+        public Guid OrderId { get; set; }
+
+        public Cart()
+        {
+            Id = Guid.NewGuid();
+            Items = new List<Item>();
+        }
+
+        public float GetTotalPrice()
+        {
+            float totalPrice = 0;
+            
+            foreach (Item item in Items)
+            {
+                totalPrice += item.Price;
+            }
+            return totalPrice;
+        }
+
+        public int GetQuantity()
+        {
+            return Items.Count;
+        }
     }
 }
