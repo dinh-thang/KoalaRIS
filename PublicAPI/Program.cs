@@ -3,6 +3,7 @@ using Application.Services;
 using DataAccess.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using PublicAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,15 +42,8 @@ app.UseHttpsRedirection();
 
 
 // login
-app.MapGet("/login", (string userName, IAccountServices accountServices) =>
-{
-    bool lState = accountServices.Login(userName);
+app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
 
-    return new Ok(lState);
-
-});
-
-// get all account
 
 app.UseCors("AllowAllOrigins");
 
