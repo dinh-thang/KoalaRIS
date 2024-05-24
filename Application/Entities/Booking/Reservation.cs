@@ -2,6 +2,8 @@
 {
     public class Reservation
     {
+        // knows about Account
+        // knows about booking info
         public Guid Id { get; set; }
 
 
@@ -9,5 +11,7 @@
         {
             Id = Guid.NewGuid();
         }
+        
+
     }
 }

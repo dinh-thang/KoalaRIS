@@ -7,19 +7,19 @@ import {pageRoutes} from "./constants/pageRoutes.js";
 import Checkout from "./pages/checkout/checkout.jsx";
 
 const App = () => {
-    const routes = [
-        { path: pageRoutes.HOME, element: <Home /> },
-        { path: pageRoutes.ORDER, element: <Order /> },
-        { path: pageRoutes.CHECKOUT, element: <Checkout /> }
-    ];
+  const routes = [
+    { path: pageRoutes.HOME, element: <Home /> },
+    { path: pageRoutes.ORDER, element: <Order /> },
+    { path: pageRoutes.CHECKOUT, element: <Checkout /> }
+  ];
 
-    return (
-        <Routes>
-            {routes.map(({ path, element }) => (
-                <Route path={path} element={element} key={`${path}-${element.name}`}/>
-            ))}
-        </Routes>
-    );
+  return (
+      <Routes>
+        {routes.map(({ path, element }) => (
+            <Route path={path} element={element} key={`${path}-${element.name}`}/>
+        ))}
+      </Routes>
+  );
 };
 
 export default App;

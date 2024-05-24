@@ -2,7 +2,7 @@
 {
     public class Item
     {
-        public Guid Id { get; set; };
+        public Guid Id { get; set; }
         public string Name { get; set; } = "";
         public float Price { get; private set; } 
         public int Stock { get; private set; }

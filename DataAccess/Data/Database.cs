@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataAccess.Data
+﻿namespace DataAccess.Data
 {
-    internal class Database
+    public class Database
     {
     }
 }

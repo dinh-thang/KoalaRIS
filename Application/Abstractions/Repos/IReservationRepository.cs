@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Entities.Booking;
 
 namespace Application.Abstractions.Repos
 {
-    internal interface IReservationRepository
+    public interface IReservationRepository
     {
+        public Reservation GetById(Guid id);
+        public List<Reservation> GetAllReservation();
+        public void AddReservation(Reservation reservation);
+        public void RemoveReservation(Guid id);
+        public void UpdateReservation(Reservation reservation);
     }
 }

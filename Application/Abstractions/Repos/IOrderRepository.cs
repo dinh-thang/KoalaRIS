@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Entities.Ordering;
 
 namespace Application.Abstractions.Repos
 {
-    internal interface IOrderRepository
+    public interface IOrderRepository
     {
+        public List<Order> GetAll();
+
     }
 }
