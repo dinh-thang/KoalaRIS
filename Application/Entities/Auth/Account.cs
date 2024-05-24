@@ -12,8 +12,8 @@
         {
             Id = Guid.NewGuid();
             Name = name;
-            SetEmail(email);
-            SetPhoneNumber(phoneNumber);
+            Email = email;
+            PhoneNumber = phoneNumber;
             AccountType = accountType;
         }
 

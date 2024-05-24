@@ -1,3 +1,9 @@
+using Application.Abstractions.Services;
+using Application.Services;
+using DataAccess.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +20,11 @@ builder.Services.AddCors(builder =>
             .AllowAnyMethod();
     });
 });
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+//builder.Services.AddScoped<IAccountServices, AccountServices>();
 
 var app = builder.Build();
 
@@ -27,6 +38,18 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // apis here
+
+
+// login
+app.MapGet("/login", (string userName, IAccountServices accountServices) =>
+{
+    bool lState = accountServices.Login(userName);
+
+    return new Ok(lState);
+
+});
+
+// get all account
 
 app.UseCors("AllowAllOrigins");
 

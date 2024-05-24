@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Entities.Auth;
 
 namespace Application.Abstractions.Repos
 {
-    internal interface IAccountRepository
+    public interface IAccountRepository
     {
+        public bool Add(Account newAccount);
+        public Account GetById(Guid id);
+        public List<Account> GetAll();
+        public bool Delete(Guid id);
+
     }
 }

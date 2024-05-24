@@ -10,15 +10,16 @@
 
         // relational properties
         // int? means this property can be null. This creates a one-to-one link to a Cart.
-        public int? CartID { get; set; }
+        public Guid? CartID { get; set; }
+        public Cart? Cart { get; set; }
 
-        public Item(string name, float price, bool isDeliverable, int initStock)
+        public Item(string name, float price, bool isDeliverable, int stock)
         {
             Id = Guid.NewGuid();
             Name = name;
             IsDeliverable = isDeliverable;
-            SetPrice(price);
-            SetInitStock(initStock);
+            Price = price;
+            Stock = stock;
         }
 
         private void SetInitStock(int stock)

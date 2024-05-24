@@ -7,8 +7,8 @@ namespace DataAccess.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly Database _db;
-        public OrderRepository(Database db) 
+        private readonly AppDbContext _db;
+        public OrderRepository(AppDbContext db) 
         {
             _db = db;
         }

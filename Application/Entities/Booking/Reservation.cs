@@ -1,11 +1,13 @@
-﻿namespace Application.Entities.Booking
+﻿using Application.Entities.Auth;
+
+namespace Application.Entities.Booking
 {
     public class Reservation
     {
-        // knows about Account
-        // knows about booking info
         public Guid Id { get; set; }
-
+        public Account Account { get; set; } = null!;
+        public DateTime ReserveTime { get; set; }
+        public int ReserveQuantity { get; set; }
 
         public Reservation()
         {
