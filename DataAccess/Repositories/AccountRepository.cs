@@ -1,6 +1,8 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Entities.Auth;
 using DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace DataAccess.Repositories
 {
@@ -13,24 +15,30 @@ namespace DataAccess.Repositories
             _db = db;
         }
 
-        public bool Add(Account newAccount)
+        public void Add(Account newAccount)
         {
-            throw new NotImplementedException();
+            _db.Accounts.Add(newAccount);
+
+            _db.SaveChanges();
         }
 
-        public bool Delete(Guid id)
+        public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            Account account = _db.Accounts.Single(a => a.Id == id); //return a single element that satisfy condition, if not throw error.
+            
+            _db.Accounts.Remove(account);
+
+            _db.SaveChanges();
         }
 
         public List<Account> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Accounts.ToList();
         }
 
         public Account GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _db.Accounts.Single(a => a.Id == id);
         }
     }
 }

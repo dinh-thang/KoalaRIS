@@ -19,7 +19,7 @@
             Name = name;
             IsDeliverable = isDeliverable;
             Price = price;
-            Stock = stock;
+            SetInitStock(stock);
         }
 
         private void SetInitStock(int stock)
