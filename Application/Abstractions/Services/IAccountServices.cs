@@ -4,8 +4,7 @@ namespace Application.Abstractions.Services
 {
     public interface IAccountServices
     {
-        public bool Login(Account aAccount);
-        public bool Logout(Account aAccount);
+        public bool SignUp(string userName, string email, int phoneNumber, AccountType accountType);
         public List<Account> GetAllCustomer();
         public List<Account> GetAllStaff();
     }

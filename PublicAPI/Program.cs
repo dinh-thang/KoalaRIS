@@ -1,14 +1,14 @@
 using Application.Abstractions.Services;
+using Application.Entities.Auth;
 using Application.Services;
 using DataAccess.Data;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using PublicAPI;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using PublicAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(builder =>
@@ -21,11 +21,15 @@ builder.Services.AddCors(builder =>
             .AllowAnyMethod();
     });
 });
+
+// DbContext config
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-//builder.Services.AddScoped<IAccountServices, AccountServices>();
+// Dependencies injection config
+builder.Services.AddScoped<IAccountServices, AccountServices>();
+builder.Services.AddScoped<IOrderServices, OrderServices>();
+builder.Services.AddScoped<IReservationServices, ReservationServices>();
 
 var app = builder.Build();
 
@@ -42,7 +46,7 @@ app.UseHttpsRedirection();
 
 
 // login
-app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
+app.MapGet("/login", (Account account, IAccountServices accountServices) => AccountEndpoints.Login(account, accountServices));
 
 
 app.UseCors("AllowAllOrigins");

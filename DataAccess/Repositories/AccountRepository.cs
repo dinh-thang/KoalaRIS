@@ -1,8 +1,6 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Entities.Auth;
 using DataAccess.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
 
 namespace DataAccess.Repositories
 {
@@ -18,7 +16,6 @@ namespace DataAccess.Repositories
         public void Add(Account newAccount)
         {
             _db.Accounts.Add(newAccount);
-
             _db.SaveChanges();
         }
 
@@ -27,7 +24,6 @@ namespace DataAccess.Repositories
             Account account = _db.Accounts.Single(a => a.Id == id); //return a single element that satisfy condition, if not throw error.
             
             _db.Accounts.Remove(account);
-
             _db.SaveChanges();
         }
 
@@ -36,7 +32,7 @@ namespace DataAccess.Repositories
             return _db.Accounts.ToList();
         }
 
-        public Account GetById(Guid id)
+        public Account? GetById(Guid id)
         {
             return _db.Accounts.Single(a => a.Id == id);
         }

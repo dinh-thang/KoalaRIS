@@ -7,21 +7,11 @@ namespace Application.Services
 
     public class AccountServices : IAccountServices
     {
-        private readonly IAccountRepository _db;
-        public AccountServices()
-        {
-            
-        }
+        private readonly IAccountRepository _repo;
 
-        // only requires user name to login. Compare userna
-        public bool Login(Account Account)
+        public AccountServices(IAccountRepository repo)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Logout(Account Account) 
-        {
-            throw new NotImplementedException();
+            _repo = repo;
         }
 
         public bool SignUp(string userName, string email, int phoneNumber, AccountType accountType) //when signup button is clicked
@@ -30,7 +20,7 @@ namespace Application.Services
             try
             {
                 Account newAccount = new Account(userName, email, phoneNumber, accountType);
-                _db.Add(newAccount);
+                _repo.Add(newAccount);
                 Console.WriteLine("Account created."); //signal GUI sucessful
             }
             catch (ArgumentException ex)
@@ -42,8 +32,7 @@ namespace Application.Services
 
         public List<Account> GetAllCustomer()
         {
-            List<Account> accounts = _db.GetAll(); 
-
+            List<Account> accounts = _repo.GetAll(); 
             List<Account> result = new List<Account>();
 
             foreach (Account a in accounts)
@@ -59,8 +48,7 @@ namespace Application.Services
 
         public List<Account> GetAllStaff()
         {
-            List<Account> accounts = _db.GetAll();
-
+            List<Account> accounts = _repo.GetAll();
             List<Account> result = new List<Account>();
 
             foreach (Account a in accounts)

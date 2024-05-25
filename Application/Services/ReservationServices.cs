@@ -1,9 +1,10 @@
 ﻿using Application.Abstractions.Repos;
-using Application.Entities.Booking;
+using Application.Abstractions.Services;
+using Application.Entities;
 
 namespace Application.Services
 {
-    public class ReservationServices
+    public class ReservationServices : IReservationServices
     {
         // make a variable for total slots left
         private readonly IReservationRepository _repo;
