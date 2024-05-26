@@ -7,21 +7,11 @@ namespace Application.Services
 {
     public class OrderServices : IOrderServices
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderRepository _repo;
 
         public OrderServices(IOrderRepository orderRepository)
         {
-            _orderRepository = orderRepository;
-        }
-
-        public void CreateNewOrder(Account account)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Order> GetAllOrders(Account account)
-        {
-            return _orderRepository.GetAll();
+            _repo = orderRepository;
         }
     }
 }

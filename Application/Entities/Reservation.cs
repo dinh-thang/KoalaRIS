@@ -1,6 +1,6 @@
 ﻿using Application.Entities.Auth;
 
-namespace Application.Entities.Booking
+namespace Application.Entities
 {
     public class Reservation
     {

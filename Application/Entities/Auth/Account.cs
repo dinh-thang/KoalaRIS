@@ -1,4 +1,6 @@
-﻿namespace Application.Entities.Auth
+﻿using System.Text.RegularExpressions;
+
+namespace Application.Entities.Auth
 {
     public class Account
     {
@@ -12,19 +14,68 @@
         {
             Id = Guid.NewGuid();
             Name = name;
-            Email = email;
-            PhoneNumber = phoneNumber;
+            SetEmail(email);
+            SetPhoneNumber(phoneNumber);
             AccountType = accountType;
         }
 
         public void SetEmail(string email) 
         {
-            throw new NotImplementedException();
+            if (EmailIsValid(email))
+            {
+                Email = email;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Email", nameof(email));
+            }
         }
 
         public void SetPhoneNumber(int phoneNumber)
         {
-            throw new NotImplementedException();
+            //assuming the phone number is australian
+            if (IsValidAustralianPhoneNumber(phoneNumber.ToString()))
+            {
+                PhoneNumber = phoneNumber;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Australian phone number");
+            }
+        }
+
+        private static bool EmailIsValid(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                return regex.IsMatch(email);
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
+
+        private static bool IsValidAustralianPhoneNumber(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return false;
+
+            try
+            {
+                string pattern = @"^(\+61[-\s]?)?(\(?0[2-478]\)?[-\s]?\d{4}[-\s]?\d{4}|\(?04\)?[-\s]?\d{2}[-\s]?\d{3}[-\s]?\d{3})$";
+                Regex regex = new Regex(pattern);
+                return regex.IsMatch(phoneNumber);
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
         }
     }
 }
