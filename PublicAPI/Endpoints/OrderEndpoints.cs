@@ -1,4 +1,9 @@
-﻿namespace PublicAPI
+﻿using Application.Abstractions.Services;
+using Application.Entities.Auth;
+using Application.Entities.Ordering;
+using Application.ValueObjects;
+
+namespace PublicAPI
 {
     public static class OrderEndpoints
     {
@@ -8,9 +13,9 @@
             return Results.Ok(orderId);
         }
 
-        public static IResult GetAllOrders(Account account, IOrderServices ordersServices)
+        public static IResult GetAllOrders(Guid accountId, IOrderServices ordersServices)
         {
-            List<Order> orders = ordersServices.GetAllOrders(account);
+            List<Order> orders = ordersServices.GetAllOrders(accountId);
             return Results.Ok(orders);
         }
 

@@ -21,19 +21,22 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public List<Order> GetAllOrders(Account account)
+        public List<Order> GetAllOrders(Guid accountId)
         {
-            if (account == null)
-            {
-                throw new ArgumentNullException(nameof(account));
-            }
+            //if (account == null)
+            //{
+            //    throw new ArgumentNullException(nameof(account));
+            //}
 
-            if (account.AccountType != AccountType.Staff)
-            {
-                throw new UnauthorizedAccessException("Only admin accounts can retrieve order information.");
-            }
+            //if (account.AccountType != AccountType.Staff)
+            //{
+            //    throw new UnauthorizedAccessException("Only admin accounts can retrieve order information.");
+            //}
 
-            return _orderRepository.GetAll();
+            //return _orderRepository.GetAll();
+
+            // lam lai cnay nheee
+            throw new NotImplementedException();
         }
 
         public Order? GetOrderById(Guid id)
@@ -47,11 +50,6 @@ namespace Application.Services
         }
 
         public Guid AddNewOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Order> GetAllOrders(Guid accountId)
         {
             throw new NotImplementedException();
         }
