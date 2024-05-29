@@ -5,7 +5,6 @@ using Application.Services;
 using DataAccess.Data;
 using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using PublicAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(builder =>
 {
     builder.AddPolicy("AllowAllOrigins", builder =>
@@ -53,7 +53,7 @@ app.UseHttpsRedirection();
 
 // login
 app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
-
+app.MapGet("/signup", (string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices) => AccountEndpoints.SignUp(username, email, phonenumber, accountType, accountServices));
 
 app.UseCors("AllowAllOrigins");
 
