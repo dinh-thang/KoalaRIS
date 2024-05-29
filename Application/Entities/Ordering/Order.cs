@@ -10,6 +10,10 @@ namespace Application.Entities.Ordering
         public Account Account { get; set; } = null!;
         public bool IsCompleted { get; private set; }
 
+        public Order()
+        {
+        }
+
         public Order(Account account)
         {
             Id = Guid.NewGuid();
