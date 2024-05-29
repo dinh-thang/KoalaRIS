@@ -1,7 +1,9 @@
+using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
 using Application.Entities.Auth;
 using Application.Services;
 using DataAccess.Data;
+using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using PublicAPI.Endpoints;
 
@@ -10,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(builder =>
 {
     builder.AddPolicy("AllowAllOrigins", builder =>
@@ -26,6 +29,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Dependencies injection config
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IOrderRepository,  OrderRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+
 builder.Services.AddScoped<IAccountServices, AccountServices>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<IReservationServices, ReservationServices>();
@@ -45,8 +52,8 @@ app.UseHttpsRedirection();
 
 
 // login
-app.MapGet("/login", (Account account, IAccountServices accountServices) => AccountEndpoints.Login(account, accountServices));
-
+app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
+app.MapGet("/signup", (string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices) => AccountEndpoints.SignUp(username, email, phonenumber, accountType, accountServices));
 
 app.UseCors("AllowAllOrigins");
 

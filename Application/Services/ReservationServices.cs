@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
-using Application.Entities;
 
 namespace Application.Services
 {

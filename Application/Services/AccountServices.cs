@@ -30,6 +30,17 @@ namespace Application.Services
             return true;
         } 
 
+        public bool LogIn(string email)
+        {   
+            Account? account = _repo.GetByEmail(email);
+                
+            if (account == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public List<Account> GetAllCustomer()
         {
             List<Account> accounts = _repo.GetAll(); 

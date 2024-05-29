@@ -32,7 +32,7 @@ namespace DataAccess.Repositories
             return _db.Accounts.ToList();
         }
 
-        public Account? GetByEmail(string email)
+        public Account? GetById(Guid id)
         {
             return _db.Accounts.Single(a => a.Email == email);
         }

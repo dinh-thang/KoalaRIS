@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
-using Application.Entities.Auth;
 using Application.Entities.Ordering;
 using Application.ValueObjects;
 
@@ -43,6 +42,16 @@ namespace Application.Services
         }
 
         public PaymentDetail GetReceipt(Guid orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Guid AddNewOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Order> GetAllOrders(Guid accountId)
         {
             throw new NotImplementedException();
         }

@@ -1,9 +1,4 @@
-﻿using Application.Abstractions.Services;
-using Application.Entities.Auth;
-using Application.Entities.Ordering;
-using Application.ValueObjects;
-
-namespace PublicAPI
+﻿namespace PublicAPI
 {
     public static class OrderEndpoints
     {
