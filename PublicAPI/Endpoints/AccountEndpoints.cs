@@ -7,8 +7,9 @@ namespace PublicAPI.Endpoints
     {
         public static IResult Login(Account account, IAccountServices accountServices)
         {
-            bool result = accountServices.SignUp(account);
-            return Results.Ok(result);
+            //bool result = accountServices.SignUp(account);
+            //return Results.Ok(result);
+            throw new NotImplementedException();
         }
     }
 }

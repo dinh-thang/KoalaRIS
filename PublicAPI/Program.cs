@@ -3,7 +3,6 @@ using Application.Entities.Auth;
 using Application.Services;
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using PublicAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);

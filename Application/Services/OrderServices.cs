@@ -8,16 +8,17 @@ namespace Application.Services
 {
     public class OrderServices : IOrderServices
     {
-        private readonly IOrderRepository _repo;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public OrderServices(IOrderRepository orderRepository)
+        public OrderServices(IOrderRepository orderRepository, IAccountRepository accountRepository)
         {
-            _repo = orderRepository;
+            _orderRepository = orderRepository;
+            _accountRepository = accountRepository;
         }
 
         public Guid CreateOrder(Guid cartId, string email)
         {
-            // implement 2 repo here
             throw new NotImplementedException();
         }
 
@@ -33,12 +34,12 @@ namespace Application.Services
                 throw new UnauthorizedAccessException("Only admin accounts can retrieve order information.");
             }
 
-            return _repo.GetAll();
+            return _orderRepository.GetAll();
         }
 
         public Order? GetOrderById(Guid id)
         {
-            return _repo.GetById(id);
+            return _orderRepository.GetById(id);
         }
 
         public PaymentDetail GetReceipt(Guid orderId)
