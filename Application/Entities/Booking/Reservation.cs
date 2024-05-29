@@ -9,11 +9,18 @@ namespace Application.Entities.Booking
         public DateTime ReserveTime { get; set; }
         public int ReserveQuantity { get; set; }
 
-        public Reservation()
+        public Reservation(Account account, DateTime reserveTime, int quantity)
         {
             Id = Guid.NewGuid();
+            Account = account;
+            ReserveTime = reserveTime;
+            ReserveQuantity = CheckBookingQuantity(quantity);
         }
-        
-
+                
+        public int CheckBookingQuantity(int quantiy)
+        {
+            // check booking quantity logic
+            throw new NotImplementedException();
+        }
     }
 }

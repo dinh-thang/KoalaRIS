@@ -1,6 +1,9 @@
 ﻿namespace Application.Abstractions.Services
 {
-    internal interface IReservationServices
+    public interface IReservationServices
     {
+        public void MakeBooking(string email, DateTime dateAndTime, int bookingQuantity);
+        public void UpdateBooking(string email, DateTime dateAndTime, int bookingQuantity);
+        
     }
 }

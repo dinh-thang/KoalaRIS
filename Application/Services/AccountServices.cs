@@ -7,9 +7,9 @@ namespace Application.Services
     public class AccountServices : IAccountServices
     {
         private readonly IAccountRepository _db;
+
         public AccountServices()
         {
-            
         }
 
         // only requires user name to login. Create a
