@@ -7,9 +7,9 @@ namespace PublicAPI
 {
     public static class OrderEndpoints
     {
-        public static IResult MakeOrder(Guid cart, string email, IOrderServices orderServices)
+        public static IResult MakeOrder(Guid cart, Guid accountId, IOrderServices orderServices)
         {
-            Guid orderId = orderServices.CreateOrder(cart, email);
+            Guid orderId = orderServices.CreateOrder(cart, accountId);
             return Results.Ok(orderId);
         }
 
