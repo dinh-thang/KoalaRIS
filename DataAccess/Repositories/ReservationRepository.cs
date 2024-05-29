@@ -1,9 +1,17 @@
-﻿using Application.Entities.Booking;
+﻿using Application.Entities;
+using DataAccess.Data;
 
 namespace DataAccess.Repositories
 {
     public class ReservationRepository 
     {
+        private readonly AppDbContext _db;
+
+        public ReservationRepository(AppDbContext db) 
+        {
+            _db = db;
+        }
+
         public bool Add(Reservation reservation)
         {
             throw new NotImplementedException();
