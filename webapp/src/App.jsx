@@ -9,6 +9,7 @@ import Checkout from "./pages/checkout/checkout.jsx";
 const App = () => {
   const routes = [
     { path: pageRoutes.HOME, element: <Home /> },
+    { path: pageRoutes.ORDER, element: <Login /> },
     { path: pageRoutes.ORDER, element: <Order /> },
     { path: pageRoutes.CHECKOUT, element: <Checkout /> }
   ];
