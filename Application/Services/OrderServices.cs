@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
-using Application.Entities.Auth;
 using Application.Entities.Ordering;
 
 namespace Application.Services
@@ -12,6 +11,16 @@ namespace Application.Services
         public OrderServices(IOrderRepository orderRepository)
         {
             _repo = orderRepository;
+        }
+
+        public Guid AddNewOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Order> GetAllOrders(Guid accountId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

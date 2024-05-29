@@ -30,6 +30,11 @@ namespace Application.Services
             return true;
         } 
 
+        public bool LogIn(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Account> GetAllCustomer()
         {
             List<Account> accounts = _repo.GetAll(); 

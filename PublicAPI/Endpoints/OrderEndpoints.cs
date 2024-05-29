@@ -1,6 +1,12 @@
-﻿namespace PublicAPI
+﻿using Application.Abstractions.Services;
+
+namespace PublicAPI
 {
-    public class OrderEndpoints
+    public static class OrderEndpoints
     {
+        public static IResult GetAllOrders(IOrderServices orderServices, Guid accountId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
