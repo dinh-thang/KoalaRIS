@@ -1,11 +1,10 @@
 using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
-using Application.Entities.Auth;
 using Application.Services;
 using DataAccess.Data;
 using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using PublicAPI;
 using PublicAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Dependencies injection config
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<IOrderRepository,  OrderRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddScoped<IAccountServices, AccountServices>();
@@ -53,6 +52,16 @@ app.UseHttpsRedirection();
 
 // login
 app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
+
+// booking
+app.MapPost("/make-booking", (Guid accountId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
+    => ReservationEndpoints.MakeBooking(accountId, bookingTime, bookingQuantity, reservationServices));
+
+app.MapPost("/update-booking", (Guid bookingId, DateTime? bookingTime, int? bookingQuantity, IReservationServices reservationServices)
+    => ReservationEndpoints.UpdateBooking(bookingId, bookingTime, bookingQuantity, reservationServices));
+
+app.MapPost("/cancel-booking", (Guid bookingId, IReservationServices reservationServices)
+    => ReservationEndpoints.CancelBooking(bookingId, reservationServices));
 
 
 app.UseCors("AllowAllOrigins");
