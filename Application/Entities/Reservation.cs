@@ -20,7 +20,20 @@ namespace Application.Entities
         public int CheckBookingQuantity(int quantiy)
         {
             // check booking quantity logic
-            throw new NotImplementedException();
+            if (quantiy < 1)
+            {
+                throw new NotImplementedException();
+            }
+            return quantiy;
+        }
+        public DateTime CheckBookingTime(DateTime reserveTime)
+        {
+            //  Check valid booking time 
+            if (reserveTime < DateTime.Now)
+            {
+                throw new NotImplementedException();
+            }
+            return reserveTime;
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
+using Application.Entities;
+using Application.Entities.Auth;
+using Microsoft.VisualBasic.FileIO;
+using System.Reflection.Metadata;
 
 namespace Application.Services
 {
@@ -15,22 +19,31 @@ namespace Application.Services
         }
 
         // create new Reservation entity => add it to the database using repo
-        public void MakeReservataion(string email, DateTime reserveTime, int quantity)
+        public void MakeReservation(Guid accountID, DateTime reserveTime, int quantity)
         {
-            throw new NotImplementedException();
+            Account userAccount = _accountRepository.GetById(accountID);
+            Reservation reservation = new Reservation(userAccount, reserveTime, quantity);
+            
+            // Add to database using repo
+            _reservationRepository.Add(reservation);
         }
 
         // update reservation using Update in repo
-        public void UpdateReservationInfo()
+        // need help here
+        public void UpdateReservation(Guid id, DateTime newTime, int newQuantity)
         {
-            throw new NotImplementedException();
-
+            _reservationRepository.Update(id);
         }
 
         // delete the reservation from the database using repo
-        public void CancelReservation()
+        public void CancelReservation(Guid id)
         {
-            throw new NotImplementedException();
+            _reservationRepository.Delete(id);
+        }
+
+        // check if there are enough spaces for reservation
+        public void CheckReservationSpaces()
+        {
 
         }
     }

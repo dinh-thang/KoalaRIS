@@ -2,8 +2,8 @@
 {
     public interface IReservationServices
     {
-        public void MakeBooking(string email, DateTime dateAndTime, int bookingQuantity);
-        public void UpdateBooking(string email, DateTime dateAndTime, int bookingQuantity);
+        public void MakeReservation(Guid accountID, DateTime reserveTime, int quantity);
+        public void UpdateReservation(Guid id, DateTime dateAndTime, int bookingQuantity);
         
     }
 }

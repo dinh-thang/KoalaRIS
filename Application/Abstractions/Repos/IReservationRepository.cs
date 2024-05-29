@@ -8,6 +8,6 @@ namespace Application.Abstractions.Repos
         public List<Reservation> GetAll();
         public void Add(Reservation reservation);
         public void Delete(Guid id);
-        public void Update(Reservation reservation);
+        public void Update(Guid id);
     }
 }

@@ -12,27 +12,33 @@ namespace DataAccess.Repositories
             _db = db;
         }
 
-        public bool Add(Reservation reservation)
+        public void Add(Reservation reservation)
         {
-            throw new NotImplementedException();
+            _db.Reservations.Add(reservation);
+            _db.SaveChanges();
         }
 
-        public bool Delete(Guid id)
+        public void Delete(Guid id)
         {
+            Reservation reservation = _db.Reservations.Single(r => r.Id == id);
+
+            _db.Reservations.Remove(reservation);
+            _db.SaveChanges();
             throw new NotImplementedException();
         }
 
         public List<Reservation> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Reservations.ToList();
         }
 
         public Reservation GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _db.Reservations.Single(r => r.Id == id);
         }
 
-        public void Update(Reservation reservation)
+        // need help here
+        public void Update(Guid id)
         {
             throw new NotImplementedException();
         }
