@@ -15,17 +15,20 @@ namespace PublicAPI.Endpoints
         // basically create a new account
         public static IResult SignUp(string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices)
         {
-            throw new NotImplementedException();
+            bool result = accountServices.SignUp(username, email, phonenumber, accountType);
+            return Results.Ok(result);
         }
 
         public static IResult GetAllStaffAccount(IAccountServices accountServices)
         {
-            throw new NotImplementedException();
+            List<Account> result = accountServices.GetAllStaff();
+            return Results.Ok(result);
         }
 
         public static IResult GetAllCustomer(IAccountServices accountServices)
         {
-            throw new NotImplementedException();
+            List<Account> result = accountServices.GetAllCustomer();
+            return Results.Ok(result);
         }
     }
 }

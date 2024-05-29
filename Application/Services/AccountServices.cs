@@ -31,8 +31,14 @@ namespace Application.Services
         } 
 
         public bool LogIn(string email)
-        {
-            throw new NotImplementedException();
+        {   
+            Account? account = _repo.GetByEmail(email);
+                
+            if (account == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public List<Account> GetAllCustomer()
