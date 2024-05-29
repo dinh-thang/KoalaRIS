@@ -9,10 +9,9 @@ namespace Application.ValueObjects
         public float Total { get; set; }
         public List<Item> Items { get; set; }
 
-        public PaymentDetail(string name, List<Item> items, float total)
+        public PaymentDetail(string customerName, List<Item> items, float total)
         {
-            CustomerName = name;
-            Items = new List<Item>();
+            CustomerName = customerName;
             TransactionTime = DateTime.Now;
             Items = items;
             Total = total;

@@ -23,6 +23,16 @@
             return totalPrice;
         }
 
+        public void AddItem(Item item)
+        {
+            Items.Add(item);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            Items.Remove(item);
+        }
+
         public int GetQuantity()
         {
             return Items.Count;

@@ -2,7 +2,7 @@
 using Application.Abstractions.Services;
 using Application.Entities.Auth;
 using Application.Entities.Ordering;
-using System.Security.Principal;
+using Application.ValueObjects;
 
 namespace Application.Services
 {
@@ -15,15 +15,10 @@ namespace Application.Services
             _repo = orderRepository;
         }
 
-        public Order CreateOrder(Order newOrder)
+        public Guid CreateOrder(Guid cartId, string email)
         {
-            if (newOrder == null)
-            {
-                throw new NotImplementedException();
-            }
-
-            _repo.Add(newOrder);
-            return newOrder;
+            // implement 2 repo here
+            throw new NotImplementedException();
         }
 
         public List<Order> GetAllOrders(Account account)
@@ -41,14 +36,14 @@ namespace Application.Services
             return _repo.GetAll();
         }
 
-        public Order GetOrderById(Guid id)
+        public Order? GetOrderById(Guid id)
         {
             return _repo.GetById(id);
         }
 
-        public void DeleteOrder(Guid id)
+        public PaymentDetail GetReceipt(Guid orderId)
         {
-            _repo.Delete(id);
+            throw new NotImplementedException();
         }
     }
 }
