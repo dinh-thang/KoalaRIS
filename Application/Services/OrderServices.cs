@@ -1,27 +1,26 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
-using Application.Entities.Auth;
 using Application.Entities.Ordering;
 
 namespace Application.Services
 {
     public class OrderServices : IOrderServices
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderRepository _repo;
 
         public OrderServices(IOrderRepository orderRepository)
         {
-            _orderRepository = orderRepository;
+            _repo = orderRepository;
         }
 
-        public void CreateNewOrder(Account account)
+        public Guid AddNewOrder()
         {
             throw new NotImplementedException();
         }
 
-        public List<Order> GetAllOrders(Account account)
+        public List<Order> GetAllOrders(Guid accountId)
         {
-            return _orderRepository.GetAll();
+            throw new NotImplementedException();
         }
     }
 }

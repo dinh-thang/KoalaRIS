@@ -1,13 +1,13 @@
-﻿using Application.Entities.Booking;
+﻿using Application.Entities;
 
 namespace Application.Abstractions.Repos
 {
     public interface IReservationRepository
     {
-        public Reservation GetById(Guid id);
-        public List<Reservation> GetAllReservation();
-        public void AddReservation(Reservation reservation);
-        public void RemoveReservation(Guid id);
-        public void UpdateReservation(Reservation reservation);
+        public Reservation? GetById(Guid id);
+        public List<Reservation> GetAll();
+        public void Add(Reservation reservation);
+        public void Delete(Guid id);
+        public void Update(Reservation reservation);
     }
 }

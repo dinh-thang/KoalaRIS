@@ -1,9 +1,9 @@
 ﻿using Application.Abstractions.Repos;
-using Application.Entities.Booking;
+using Application.Abstractions.Services;
 
 namespace Application.Services
 {
-    public class ReservationServices
+    public class ReservationServices : IReservationServices
     {
         private readonly IReservationRepository _reservationRepository;
         private readonly IAccountRepository _accountRepository;

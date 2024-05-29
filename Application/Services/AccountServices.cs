@@ -1,32 +1,70 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Abstractions.Services;
+using Application.Entities.Auth;
 
 namespace Application.Services
 {
 
     public class AccountServices : IAccountServices
     {
-        private readonly IAccountRepository _db;
+        private readonly IAccountRepository _repo;
 
-        public AccountServices()
+        public AccountServices(IAccountRepository repo)
         {
+            _repo = repo;
         }
 
-        // only requires user name to login. Create a
-        public bool Login(string userName)
+        public bool SignUp(string userName, string email, int phoneNumber, AccountType accountType) //when signup button is clicked
+        {
+            //new Account
+            try
+            {
+                Account newAccount = new Account(userName, email, phoneNumber, accountType);
+                _repo.Add(newAccount);
+                Console.WriteLine("Account created."); //signal GUI sucessful
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ArgumentException($"Failed to create account: {ex.Message}", ex);
+            }
+            return true;
+        } 
+
+        public bool LogIn(string email)
         {
             throw new NotImplementedException();
         }
 
-        public bool Logout(string userName) 
+        public List<Account> GetAllCustomer()
         {
-            throw new NotImplementedException();
+            List<Account> accounts = _repo.GetAll(); 
+            List<Account> result = new List<Account>();
+
+            foreach (Account a in accounts)
+            {
+                if (a.AccountType == AccountType.Customer)
+                {
+                    result.Add(a);
+                }
+            }
+
+            return result;
         }
 
-        public bool SignUp(string userName) 
+        public List<Account> GetAllStaff()
         {
-            _db.AddAccount(userName);
-        } // add to db
+            List<Account> accounts = _repo.GetAll();
+            List<Account> result = new List<Account>();
 
+            foreach (Account a in accounts)
+            {
+                if (a.AccountType == AccountType.Staff)
+                {
+                    result.Add(a);
+                }
+            }
+
+            return result;
+        }
     }
 }

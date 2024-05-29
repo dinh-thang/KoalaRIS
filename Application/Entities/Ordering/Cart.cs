@@ -3,9 +3,8 @@
     public class Cart
     {
         public Guid Id { get; set; }
-        public IList<Item> Items { get; set; }
-
         public Guid OrderId { get; set; }
+        public IList<Item> Items { get; set; }
 
         public Cart()
         {
