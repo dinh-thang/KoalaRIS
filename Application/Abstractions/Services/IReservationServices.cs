@@ -1,9 +1,11 @@
-﻿namespace Application.Abstractions.Services
+﻿using System.Security.Cryptography;
+
+namespace Application.Abstractions.Services
 {
     public interface IReservationServices
     {
-        public void MakeReservation(Guid accountID, DateTime reserveTime, int quantity);
-        public void UpdateReservation(Guid id, DateTime dateAndTime, int bookingQuantity);
-        
+        public void MakeBooking(Guid accountId, DateTime reservationTime, int bookingQuantity);
+        public void UpdateBooking(Guid reservationId, DateTime? reservationTime, int? bookingQuantity);
+        public void CancelBooking(Guid bookingId);
     }
 }
