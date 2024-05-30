@@ -1,5 +1,5 @@
 export const pageRoutes = {
-    HOME: '/home',
+    HOME: '',
     LOGIN: '/login',
     ORDER: '/order',
     CHECKOUT: '/checkout',
