@@ -3,6 +3,7 @@ import './home.css';
 import logo from '../../images/logo.png';
 import dinein from '../../images/dinein.png';
 import takeaway from '../../images/takeaway.png';
+import login from '../../images/login.png';
 import '../../index.css';
 import { useNavigate, Link } from "react-router-dom";
 import { pageRoutes } from "../../constants/pageRoutes.js";
@@ -15,10 +16,6 @@ const Home = () => {
       navigate(pageRoutes.ORDER);
     };
 
-    const navigateToLogin = () => {
-        navigate(pageRoutes.LOGIN);
-      };
-
     return (
         <div className="koala__home-container__home">
             <div className="koala__home-container__logo">
@@ -26,8 +23,10 @@ const Home = () => {
             </div>
 
             {/* add login button */}
-            <Link to="/login"><span>Login</span></Link>
-            
+            <div className="koala__home-container__login">
+                <Link to="/login" className="koala__home-container__link"><span>Login</span></Link>
+            </div>
+
             <div className="koala__home-container__btn-container">
                 <div className="koala__home-container__button button1">
                     <img src={dinein} alt="dinein" />
