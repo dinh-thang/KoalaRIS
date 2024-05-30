@@ -1,19 +1,22 @@
 import MenuItem from '../../components/MenuItem.jsx';
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import bibimbap from "../../images/bibimbap.jpg";
 import Cart from "../../components/Cart.jsx";
 
 const Order = () => {
 
     // Replace this with DB
-    const menuItems = [
-        { name: "Bibimbap", price: 16.8, image: bibimbap },
-        { name: "Bibimbap", price: 16.8, image: bibimbap },
-        { name: "Bibimbap", price: 16.8, image: bibimbap },
-        { name: "Bibimbap", price: 16.8, image: bibimbap },
-        { name: "Bibimbap", price: 16.8, image: bibimbap },
-        { name: "Bibimbap", price: 16.8, image: bibimbap },
-      ];
+    const [menuItems, setMenuItems] = useState([]);
+
+    useEffect(() => {
+      fetch("http://localhost:5296/item/get-all")
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          setMenuItems(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }, []);
 
     const [cartItems, setCartItems] = useState([]);
 
