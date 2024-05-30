@@ -7,12 +7,12 @@ const Order = () => {
 
     // Replace this with DB
     const menuItems = [
-        { name: "Bibimbap", price: "$16.8", image: bibimbap },
-        { name: "Bibimbap", price: "$16.8", image: bibimbap },
-        { name: "Bibimbap", price: "$16.8", image: bibimbap },
-        { name: "Bibimbap", price: "$16.8", image: bibimbap },
-        { name: "Bibimbap", price: "$16.8", image: bibimbap },
-        { name: "Bibimbap", price: "$16.8", image: bibimbap },
+        { name: "Bibimbap", price: 16.8, image: bibimbap },
+        { name: "Bibimbap", price: 16.8, image: bibimbap },
+        { name: "Bibimbap", price: 16.8, image: bibimbap },
+        { name: "Bibimbap", price: 16.8, image: bibimbap },
+        { name: "Bibimbap", price: 16.8, image: bibimbap },
+        { name: "Bibimbap", price: 16.8, image: bibimbap },
       ];
 
     const [cartItems, setCartItems] = useState([]);
@@ -27,30 +27,30 @@ const Order = () => {
         setCartItems(newCartItems);
     };
 
-    return (     
-            <div className="bg-white p-8">
-              <div className="flex justify-between items-center mb-8">
-                <h1 className="text-4xl font-bold text-red-600">Dine In Menu</h1>
-                <div className="bg-red-600 text-white py-2 px-4 rounded">
-                  Table 5
-                </div>
-              </div>
-              <p className="text-gray-600 mb-8">
-                Enjoy our various selections from different cuisines.
-              </p>
+    const isCartVisible = cartItems.length > 0;
 
-            {/* Replace Menu Items array with db */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {menuItems.map((item) => (<MenuItem {...item} />))}
-            </div>
+  return (
+    <div className={`flex flex-col lg:flex-row p-6 bg-gray-100 min-h-screen ${isCartVisible ? 'lg:justify-start' : 'lg:justify-center'}`}>
+      <div className={`w-full ${isCartVisible ? 'lg:w-2/3' : 'lg:w-full'} mb-6 lg:mb-0`}>
+        <h1 className="text-4xl font-bold mb-6 text-red-600">Dine In Menu</h1>
+        <p className="mb-6 text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {menuItems.map((item) => (
+            <MenuItem
+              key={item.id}
+              item={item}
+              onAddToCart={addToCart}
+            />
+          ))}
+        </div>
+      </div>
             
-            {cartItems.length > 0 && (
+        {cartItems.length > 0 && ( 
             <Cart 
                 cartItems={cartItems} 
                 removeFromCart={removeFromCart} 
             />
-      )}
-
+      )} 
     </div>
     );
 };
