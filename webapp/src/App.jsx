@@ -7,6 +7,9 @@ import './index.css';
 import {pageRoutes} from "./constants/pageRoutes.js";
 import Checkout from "./pages/checkout/checkout.jsx";
 import CheckoutConfirmation from "./pages/checkout/confirm.jsx";
+import Admin from "./pages/admin/admin.jsx";
+import AdminOrder from "./pages/admin/adminorder.jsx";
+import AdminReservation from "./pages/admin/adminreservation.jsx";
 
 const App = () => {
   const routes = [
@@ -14,7 +17,10 @@ const App = () => {
     { path: pageRoutes.LOGIN, element: <Login /> },
     { path: pageRoutes.ORDER, element: <Order /> },
     { path: pageRoutes.CHECKOUT, element: <Checkout /> },
-    { path: pageRoutes.CHECKOUT_CONFIRMATION, element: <CheckoutConfirmation /> }
+    { path: pageRoutes.CHECKOUT_CONFIRMATION, element: <CheckoutConfirmation /> },
+    { path: pageRoutes.ADMIN, element: <Admin /> },
+    { path: pageRoutes.ADMIN_ORDER, element: <AdminOrder /> },
+    { path: pageRoutes.ADMIN_RESERVATION, element: <AdminReservation /> },
   ];
 
   return (
