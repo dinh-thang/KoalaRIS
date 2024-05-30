@@ -8,6 +8,9 @@ namespace Application.Entities.Ordering
         public Guid Id { get; set; }
         public Cart Cart { get; set; } = null!;
         public Account Account { get; set; } = null!;
+        public PaymentDetail PaymentDetail { get; set; } = null!;
+        public DeliveryDetail? DeliveryDetail { get; set; }
+        public bool IsCompleted { get; private set; }
 
         public Order() { }
         public Order(Account account, Cart cart)
@@ -15,12 +18,23 @@ namespace Application.Entities.Ordering
             Id = Guid.NewGuid();
             Cart = cart;
             Account = account;
+            DeliveryDetail = null;
+            IsCompleted = false;
         }
 
-        public PaymentDetail GenerateReceipt()
+        public void SetPaymentDetail(int cardNumber, DateTime expiryDate, int cvc)
         {
-            return new PaymentDetail(Account.Name, Cart.Items, Cart.GetTotalPrice());
-        }   
+            PaymentDetail = new PaymentDetail(cardNumber, expiryDate, cvc);
+        }
 
+        public void SetDeliveryDetail(string address, string description)
+        {
+            DeliveryDetail = new DeliveryDetail(address, description);
+        }
+
+        public void CompleteOrder()
+        {
+            IsCompleted = true;
+        }
     }
 }

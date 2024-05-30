@@ -17,12 +17,34 @@ namespace Application.Services
             _accountRepository = accountRepository;
         }
 
+
+        // ITEM
+
+
+
         // CART
         public Guid CreateNewCart()
         {
             Cart cart = new Cart();
             _orderRepository.AddNewCart(cart);
             return cart.Id;
+        }
+        
+        public Guid CreateNewItem(string name, float price, string imageUrl)
+        {
+            Item item = new Item(name, price, imageUrl);
+            _orderRepository.AddItem(item);
+            return item.Id;
+        }
+        
+        public List<Item> GetAllItems()
+        {
+            return _orderRepository.GetAllItems();
+        }
+
+        public List<Item> GetAllItemInCart(Guid cartId)
+        {
+            return _orderRepository.GetAllItemInCart(cartId);
         }
 
         public Guid AddNewItemToCart(Guid cartId, Guid itemId)
@@ -44,18 +66,6 @@ namespace Application.Services
             return itemId;
         }
 
-        public List<Item> GetAllItemInCart(Guid cartId)
-        {
-            return _orderRepository.GetAllItemInCart(cartId);
-        }
-
-        public Guid CreateNewItem(string name, float price, string imageUrl)
-        {
-            Item item = new Item(name, price, imageUrl);
-            _orderRepository.AddItem(item);
-            return item.Id;
-        }
-
         public Guid RemoveItemFromCart(Guid cartId, Guid itemId)
         {
             Cart? cart = _orderRepository.GetCartById(cartId);
@@ -75,10 +85,7 @@ namespace Application.Services
             return itemId;
         }
 
-        public List<Item> GetAllItems()
-        {
-            return _orderRepository.GetAllItems();
-        }
+
 
         // ORDER
         public Guid CreateOrder(Guid cartId, Guid accountId)
@@ -103,6 +110,11 @@ namespace Application.Services
 
         public List<Order> GetAllOrdersOfAnAccount(Guid accountId)
         {
+            // if admin => return all orders
+            if (_accountRepository.GetById(accountId) != null && _accountRepository.GetById(accountId)!.AccountType == AccountType.Staff)
+            {
+                return _orderRepository.GetAllOrders();
+            }
             return _orderRepository.GetOrdersByAccountId(accountId);
         }
 
@@ -111,14 +123,39 @@ namespace Application.Services
             return _orderRepository.GetOrderById(id);
         }
 
-        public PaymentDetail GetReceipt(Guid orderId)
+        public bool UpdateDeliveryDetail(Guid orderId, string address, string description)
         {
-            Order? order = _orderRepository.GetOrderById(orderId);
+            Order? order = GetOrderById(orderId);
+            if (order == null)
+            {
+                throw new ArgumentException("Can't find order with id:" +  orderId.ToString());
+            }
+
+            order.SetDeliveryDetail(address, description);
+            return true;
+        }
+
+        public bool UpdatePaymentDetail(Guid orderId, int cardNumber, DateTime expiryDate, int cvc)
+        {
+            Order? order = GetOrderById(orderId);
             if (order == null)
             {
                 throw new ArgumentException("Can't find order with id:" + orderId.ToString());
             }
-            return order.GenerateReceipt();
+
+            order.SetPaymentDetail(cardNumber, expiryDate, cvc);
+            return true;
+        }
+        
+        public void CompleteOrder(Guid orderId)
+        {
+            Order? order = GetOrderById(orderId);
+            if (order == null)
+            {
+                throw new ArgumentException("Can't find order with id:" + orderId.ToString());
+            }
+            order.CompleteOrder();
+            _orderRepository.UpdateOrder(order);
         }
     }
 }
