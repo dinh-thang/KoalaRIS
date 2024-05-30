@@ -21,10 +21,11 @@ namespace DataAccess.Repositories
 
         public void Delete(Guid id)
         {
-            Account account = _db.Accounts.Single(a => a.Id == id); //return a single element that satisfy condition, if not throw error.
-            
-            _db.Accounts.Remove(account);
-            _db.SaveChanges();
+            if (GetById(id) != null)
+            {
+                _db.Accounts.Remove(GetById(id)!);
+                _db.SaveChanges();
+            }            
         }
 
         public List<Account> GetAll()
