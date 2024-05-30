@@ -14,8 +14,10 @@ namespace Application.Abstractions.Repos
         public void AddNewCart(Cart cart);
         public Cart? GetCartById(Guid cartId);
         public void UpdateCart(Cart cart);
+        public List<Item> GetAllItemInCart(Guid cartId);
 
         // item
+        public List<Item> GetAllItems();
         public Item? GetItemById(Guid itemId);
         public void AddItem(Item item);
     }

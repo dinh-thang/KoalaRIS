@@ -7,8 +7,7 @@
         public string ImageUrl { get; set; } = "";
         public float Price { get; private set; } 
 
-        public Guid? CartID { get; set; }
-        public Cart? Cart { get; set; }
+        public List<Cart> Carts { get; private set; }
 
         public Item() { }
 

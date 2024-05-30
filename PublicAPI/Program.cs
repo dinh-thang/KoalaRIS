@@ -86,11 +86,16 @@ app.MapGet("/order/get-receipt", (Guid orderId, IOrderServices orderServices)
     => OrderEndpoints.GetReceipt(orderId, orderServices));
 
 // Cart Endpoints
+app.MapGet("/cart", (IOrderServices orderServices)
+    => OrderEndpoints.InitNewCart(orderServices));
+
 app.MapPost("/cart/add-item", (Guid itemId, Guid cartId, IOrderServices orderServices)
     => OrderEndpoints.AddItemToCart(itemId, cartId, orderServices));
 
 app.MapDelete("/cart/remove-item", (Guid itemId, Guid cartId, IOrderServices orderServices)
     => OrderEndpoints.RemoveItemFromCart(itemId, cartId, orderServices));
+app.MapGet("/cart/get-all", (Guid cartId, IOrderServices orderServices) 
+    => OrderEndpoints.GetAllItemsInCart(cartId, orderServices));
 
 // Item Endpoints
 app.MapPost("/item/add-new", (string name, float price, string imageUrl, IOrderServices orderServices)
