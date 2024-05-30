@@ -61,8 +61,8 @@ const Checkout = () => {
       <form id="check-out-form" onSubmit={handleSubmit}> 
 
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-red-600">Check-out</h1>
-          <div className="bg-red-600 text-white py-2 px-4 rounded">
+          <h1 className="text-4xl font-bold text-red">Check-out</h1>
+          <div className="bg-red text-white py-2 px-4 rounded">
             Table 5
           </div>
         </div>
@@ -217,7 +217,7 @@ const Checkout = () => {
         <input
           type="submit"
           value="Pay"
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full cursor-pointer"
+          className="bg-red hover:bg-red-hover text-white font-bold py-2 px-4 rounded w-full cursor-pointer"
         />
       </form>
     </div>
