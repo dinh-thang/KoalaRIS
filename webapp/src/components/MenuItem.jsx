@@ -2,7 +2,6 @@ export default function MenuItem({
     image, name, price 
 }) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <img src={image} alt={name} className="w-full h-48 object-cover" />
             <div className="p-4">
@@ -13,7 +12,6 @@ export default function MenuItem({
               </button>
             </div>
           </div>
-      </div>
     );
 }
    
