@@ -16,8 +16,15 @@ namespace Application.Services
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
         }
-        
+
         // CART
+        public Guid CreateNewCart()
+        {
+            Cart cart = new Cart();
+            _orderRepository.AddNewCart(cart);
+            return cart.Id;
+        }
+
         public Guid AddNewItemToCart(Guid cartId, Guid itemId)
         {
             Cart? cart = _orderRepository.GetCartById(cartId);

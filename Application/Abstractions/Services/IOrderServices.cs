@@ -6,7 +6,7 @@ namespace Application.Abstractions.Services
     public interface IOrderServices
     {
         // ORDER
-        public Order GetOrderById(Guid orderId);
+        public Order? GetOrderById(Guid orderId);
         public List<Order> GetAllOrdersOfAnAccount(Guid accountId);
         public Guid CreateOrder(Guid cartId, Guid accountId);
         public PaymentDetail GetReceipt(Guid orderId);

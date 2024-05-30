@@ -3,6 +3,7 @@
     public class Cart
     {
         public Guid Id { get; private set; }
+        public Guid OrderId { get; set; }   
         public List<Item> Items { get; private set; }
 
         public Cart()
