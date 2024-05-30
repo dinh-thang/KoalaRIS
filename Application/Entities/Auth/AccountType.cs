@@ -4,7 +4,6 @@
     {
         Default,
         Customer,
-        Delivery,
         Staff
     }
 }
