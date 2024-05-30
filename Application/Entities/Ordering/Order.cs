@@ -6,7 +6,7 @@ namespace Application.Entities.Ordering
     public class Order
     {
         public Guid Id { get; set; }
-        public Cart Cart { get; set; }
+        public Cart Cart { get; set; } = null!;
         public Account Account { get; set; } = null!;
 
         public Order(Account account, Cart cart)
@@ -18,14 +18,15 @@ namespace Application.Entities.Ordering
 
         private float GetTotalPrice()
         {
-            // return total price for all the Item in the Cart
-            throw new NotImplementedException();
+            // Calculate the total price for all items in the cart
+            return Cart.Items.Sum(item => item.Price);
         }
 
         public PaymentDetail GenerateReceipt()
         {
-            // return PaymentDetail obj, containing all the neccessary receipt info.
+            // Create and return a PaymentDetail object containing all necessary receipt info
             throw new NotImplementedException();
-        }
+        }   
+
     }
 }

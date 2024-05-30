@@ -25,6 +25,7 @@ namespace DataAccess.Repositories
             if (order != null)
             {
                 _db.Orders.Remove(order);
+                _db.SaveChanges();
             }
         }
 

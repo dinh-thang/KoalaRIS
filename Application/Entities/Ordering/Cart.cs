@@ -1,10 +1,13 @@
-﻿namespace Application.Entities.Ordering
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Application.Entities.Ordering
 {
     public class Cart
     {
-        public Guid Id { get; set; }
-        public Guid OrderId { get; set; }
-        public IList<Item> Items { get; set; }
+        public Guid Id { get; private set; }
+        public IList<Item> Items { get; private set; }
 
         public Cart()
         {
@@ -14,28 +17,39 @@
 
         public float GetTotalPrice()
         {
-            float totalPrice = 0;
+            return Items.Sum(item => item.Price);
+        }
+
+        public void AddItem(Item item, int quantity)
+        {
             
-            foreach (Item item in Items)
+            if (item.Stock < quantity)
             {
-                totalPrice += item.Price;
+                //implement notification for out of stock
             }
-            return totalPrice;
+
+            item.DeductStock(quantity);
+
+            for (int i = 0; i < quantity; i++)
+            {
+                Items.Add(item);
+            }
         }
 
-        public void AddItem(Item item)
+        public void RemoveItem(Item item, int quantity)
         {
-            Items.Add(item);
+            var itemsToRemove = Items.Where(i => i.Id == item.Id).Take(quantity).ToList();
+
+            foreach (var itemToRemove in itemsToRemove)
+            {
+                Items.Remove(itemToRemove);
+                item.AddStock(1);
+            }
         }
 
-        public void RemoveItem(Item item)
+        public bool AllItemsDeliverable()
         {
-            Items.Remove(item);
-        }
-
-        public int GetQuantity()
-        {
-            return Items.Count;
+            return Items.All(item => item.IsDeliverable);
         }
     }
 }
