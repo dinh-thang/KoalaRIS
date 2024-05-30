@@ -33,6 +33,11 @@ namespace DataAccess.Repositories
             return _db.Reservations.ToList();
         }
 
+        public List<Reservation> GetAllByAccountId(Guid accountId)
+        {
+            return _db.Reservations.Where(a => a.Account.Id == accountId).ToList();
+        }
+
         public Reservation? GetById(Guid id)
         {
             return _db.Reservations.Single(r => r.Id == id);

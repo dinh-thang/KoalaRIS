@@ -47,7 +47,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// apis here
 
 
 // login
@@ -62,6 +61,15 @@ app.MapPost("/update-booking", (Guid bookingId, DateTime bookingTime, int bookin
 
 app.MapPost("/cancel-booking", (Guid bookingId, IReservationServices reservationServices)
     => ReservationEndpoints.CancelBooking(bookingId, reservationServices));
+
+app.MapGet("/get-all-bookings-of-account", (Guid accountId, IReservationServices reservationServices)
+    => ReservationEndpoints.GetAllBookingsOfAnAccount(accountId, reservationServices));
+
+// admin
+app.MapGet("admin-get-all-bookings", (Guid accountId, IReservationServices reservationServices) 
+    => ReservationEndpoints.AdminGetAllBookings(accountId, reservationServices));
+
+
 
 
 app.UseCors("AllowAllOrigins");

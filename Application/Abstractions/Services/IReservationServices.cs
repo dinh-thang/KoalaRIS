@@ -1,11 +1,15 @@
-﻿using System.Security.Cryptography;
+﻿using Application.Entities;
+using System.Security.Cryptography;
 
 namespace Application.Abstractions.Services
 {
     public interface IReservationServices
     {
-        public void MakeReservation(Guid accountId, DateTime reservationTime, int bookingQuantity);
-        public void UpdateReservation(Guid reservationId, DateTime reservationTime, int bookingQuantity);
-        public void CancelReservation(Guid bookingId);
+        public List<Reservation> GetAllReservationsOfACustomer(Guid customerId);
+        public List<Reservation> AdminGetAllReservations(Guid accountId);
+
+        public Guid MakeReservation(Guid accountId, DateTime reservationTime, int bookingQuantity);
+        public Guid UpdateReservation(Guid accountId, DateTime reservationTime, int bookingQuantity);
+        public Guid CancelReservation(Guid bookingId);
     }
 }

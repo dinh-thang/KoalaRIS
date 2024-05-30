@@ -16,41 +16,59 @@ namespace Application.Services
             _accountRepository = accountRepository;
         }
 
-        // create new Reservation entity => add it to the database using repo
-        public void MakeReservation(Guid accountID, DateTime reserveTime, int quantity)
+        public Guid MakeReservation(Guid accountID, DateTime reserveTime, int quantity)
         {
             Account? userAccount = _accountRepository.GetById(accountID);
 
             if (userAccount == null)
             {
-                return;
+                throw new ArgumentException("Invalid user account id.");
             }
             Reservation reservation = new Reservation(userAccount, reserveTime, quantity);
             
-            // Add to database using repo
             _reservationRepository.Add(reservation);
+            return reservation.Id;
         }
 
-        // update reservation using Update in repo
-        // need help here
-        public void UpdateReservation(Guid id, DateTime newTime, int newQuantity)
+        public Guid UpdateReservation(Guid bookingId, DateTime newTime, int newQuantity)
         {
-            Reservation? newBooking = _reservationRepository.GetById(id);
+            Reservation? newBooking = _reservationRepository.GetById(bookingId);
 
             if (newBooking == null)
             {
-                return;
+                throw new ArgumentException("Invalid booking id.");
             }
             newBooking.ReserveTime = newTime;
             newBooking.ReserveQuantity = newQuantity;
 
             _reservationRepository.Update(newBooking);
+            return bookingId;
         }
 
-        // delete the reservation from the database using repo
-        public void CancelReservation(Guid id)
+        public Guid CancelReservation(Guid bookingId)
         {
-            _reservationRepository.Delete(id);
+            _reservationRepository.Delete(bookingId);
+            return bookingId;
+        }
+
+        public List<Reservation> GetAllReservationsOfACustomer(Guid customerId)
+        {
+            return _reservationRepository.GetAllByAccountId(customerId);
+        }
+
+        public List<Reservation> AdminGetAllReservations(Guid accountId)
+        {
+            Account? admin = _accountRepository.GetById(accountId);
+            if (admin == null)
+            {
+                throw new ArgumentException("Invalid account id");
+            }
+
+            if (admin.AccountType != AccountType.Staff)
+            {
+                throw new InvalidOperationException("Only staff is allowed to view all bookings");
+            }
+            return _reservationRepository.GetAll();
         }
     }
 }

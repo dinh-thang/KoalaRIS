@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Services;
+using Application.Entities;
 
 namespace PublicAPI
 {
@@ -20,6 +21,18 @@ namespace PublicAPI
         {
             reservationService.CancelReservation(bookingId);
             return Results.Ok();
+        }
+
+        public static IResult AdminGetAllBookings(Guid accountId, IReservationServices reservationServices)
+        {
+            List<Reservation> bookings = reservationServices.AdminGetAllReservations(accountId);
+            return Results.Ok(bookings);
+        }
+
+        public static IResult GetAllBookingsOfAnAccount(Guid accountId, IReservationServices reservationServices)
+        {
+            List<Reservation> bookings = reservationServices.GetAllReservationsOfACustomer(accountId);
+            return Results.Ok(bookings);
         }
     }
 }
