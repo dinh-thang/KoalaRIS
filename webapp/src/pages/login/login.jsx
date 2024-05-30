@@ -1,3 +1,6 @@
+import logo from "../../images/logo.png";
+
+
 const Login = () => {
     return (
         <div className="koala__home-container__home">
@@ -8,4 +11,4 @@ const Login = () => {
     )
 }
 
-export default Order;
+export default Login;
