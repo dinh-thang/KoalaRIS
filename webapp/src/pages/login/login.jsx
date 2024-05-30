@@ -2,7 +2,7 @@ import React from "react";
 import logo from '../../images/logo.png';
 import back from '../../images/back.png';
 import { pageRoutes } from '../../constants/pageRoutes.js';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
