@@ -13,9 +13,8 @@
         public Guid? CartID { get; set; }
         public Cart? Cart { get; set; }
 
-        public Item()
+        private Item()
         {
-            
         }
 
         public Item(string name, float price, bool isDeliverable, int stock)

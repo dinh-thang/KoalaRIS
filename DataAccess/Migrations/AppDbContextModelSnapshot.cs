@@ -61,7 +61,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Item", b =>
@@ -90,7 +90,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CartID");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Order", b =>
