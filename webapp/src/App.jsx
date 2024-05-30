@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./pages/home/home.jsx";
 import Order from "./pages/order/order.jsx";
-import Login from "./pages/login/login.jsx"
-
+import Login from "./pages/login/login.jsx";
+import './index.css';
 import {pageRoutes} from "./constants/pageRoutes.js";
 import Checkout from "./pages/checkout/checkout.jsx";
 

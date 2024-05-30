@@ -3,7 +3,6 @@ import './home.css';
 import logo from '../../images/logo.png';
 import dinein from '../../images/dinein.png';
 import takeaway from '../../images/takeaway.png';
-import login from '../../images/login.png';
 import '../../index.css';
 import { useNavigate, Link } from "react-router-dom";
 import { pageRoutes } from "../../constants/pageRoutes.js";
