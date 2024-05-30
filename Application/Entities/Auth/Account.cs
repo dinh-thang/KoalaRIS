@@ -75,7 +75,7 @@ namespace Application.Entities.Auth
 
             try
             {
-                string pattern = @"^(\+61[-\s]?)?(\(?0[2-478]\)?[-\s]?\d{4}[-\s]?\d{4}|\(?04\)?[-\s]?\d{2}[-\s]?\d{3}[-\s]?\d{3})$";
+                string pattern = @"^0?(4\d{8}|[2378]\d{7})$";
                 Regex regex = new Regex(pattern);
                 return regex.IsMatch(phoneNumber);
             }

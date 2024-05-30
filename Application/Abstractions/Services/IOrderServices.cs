@@ -1,14 +1,22 @@
-﻿using Application.Entities.Auth;
-using Application.Entities.Ordering;
+﻿using Application.Entities.Ordering;
+using Application.ValueObjects;
 
 namespace Application.Abstractions.Services
 {
     public interface IOrderServices
     {
-        // return a list of all Orders from the database for an Account
-        public List<Order> GetAllOrders(Guid accountId);
+        // ORDER
+        public Order? GetOrderById(Guid orderId);
+        public List<Order> GetAllOrdersOfAnAccount(Guid accountId);
+        public Guid CreateOrder(Guid cartId, Guid accountId);
+        public PaymentDetail GetReceipt(Guid orderId);
 
-        // create a new order, add it to the database and return the Order for confirmation
-        public Guid AddNewOrder();
+        // CART
+        public Guid CreateNewCart();
+        public Guid AddNewItemToCart(Guid cartId, Guid itemId);
+        public Guid RemoveItemFromCart(Guid cartId, Guid itemId);
+
+        // ITEM
+        public Guid CreateNewItem(string name, float price, string imageUrl);
     }
 }

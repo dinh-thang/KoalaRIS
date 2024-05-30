@@ -21,10 +21,11 @@ namespace DataAccess.Repositories
 
         public void Delete(Guid id)
         {
-            Account account = _db.Accounts.Single(a => a.Id == id); //return a single element that satisfy condition, if not throw error.
-            
-            _db.Accounts.Remove(account);
-            _db.SaveChanges();
+            if (GetById(id) != null)
+            {
+                _db.Accounts.Remove(GetById(id)!);
+                _db.SaveChanges();
+            }            
         }
 
         public List<Account> GetAll()
@@ -34,12 +35,12 @@ namespace DataAccess.Repositories
 
         public Account? GetByEmail(string email)
         {
-            return _db.Accounts.FirstOrDefault(a => a.Email == email);
+            return _db.Accounts.Single(a => a.Email == email);
         }
 
         public Account? GetById(Guid id)
         {
-            return _db.Accounts.Single(a => a.Id == id);
+            return _db.Accounts.Find(id);
         }
     }
 }

@@ -5,6 +5,7 @@ using Application.Services;
 using DataAccess.Data;
 using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
+using PublicAPI;
 using PublicAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +31,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Dependencies injection config
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<IOrderRepository,  OrderRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddScoped<IAccountServices, AccountServices>();
@@ -48,12 +49,54 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// apis here
 
 
 // login
 app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
 app.MapGet("/signup", (string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices) => AccountEndpoints.SignUp(username, email, phonenumber, accountType, accountServices));
+
+// booking
+app.MapPost("/booking/make-booking", (Guid accountId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
+    => ReservationEndpoints.MakeBooking(accountId, bookingTime, bookingQuantity, reservationServices));
+
+app.MapPost("/booking/update-booking", (Guid bookingId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
+    => ReservationEndpoints.UpdateBooking(bookingId, bookingTime, bookingQuantity, reservationServices));
+
+app.MapPost("/booking/cancel", (Guid bookingId, IReservationServices reservationServices)
+    => ReservationEndpoints.CancelBooking(bookingId, reservationServices));
+
+app.MapGet("/booking/get-all", (Guid accountId, IReservationServices reservationServices)
+    => ReservationEndpoints.GetAllBookingsOfAnAccount(accountId, reservationServices));
+
+// admin
+app.MapGet("admin/booking/get-all", (Guid accountId, IReservationServices reservationServices) 
+    => ReservationEndpoints.AdminGetAllBookings(accountId, reservationServices));
+
+// order
+app.MapGet("/order/get", (Guid orderId, IOrderServices orderServices)
+    => OrderEndpoints.GetOrderById(orderId, orderServices));
+
+app.MapPost("/order/add", (Guid cart, Guid accountId, IOrderServices orderServices)
+    => OrderEndpoints.MakeOrder(cart, accountId, orderServices));
+
+app.MapGet("/order/get-all-for-account", (Guid accountId, IOrderServices orderServices)
+    => OrderEndpoints.GetAllOrdersOfAnAccount(accountId, orderServices));
+
+app.MapGet("/order/get-receipt", (Guid orderId, IOrderServices orderServices)
+    => OrderEndpoints.GetReceipt(orderId, orderServices));
+
+// Cart Endpoints
+app.MapPost("/cart/add-item", (Guid itemId, Guid cartId, IOrderServices orderServices)
+    => OrderEndpoints.AddItemToCart(itemId, cartId, orderServices));
+
+app.MapDelete("/cart/remove-item", (Guid itemId, Guid cartId, IOrderServices orderServices)
+    => OrderEndpoints.RemoveItemFromCart(itemId, cartId, orderServices));
+
+// Item Endpoints
+app.MapPost("/item/add-new", (string name, float price, string imageUrl, IOrderServices orderServices)
+    => OrderEndpoints.CreateNewItem(name, price, imageUrl, orderServices));
+
+
 
 app.UseCors("AllowAllOrigins");
 

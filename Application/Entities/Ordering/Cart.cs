@@ -2,9 +2,9 @@
 {
     public class Cart
     {
-        public Guid Id { get; set; }
-        public Guid OrderId { get; set; }
-        public List<Item> Items { get; set; }
+        public Guid Id { get; private set; }
+        public Guid OrderId { get; set; }   
+        public List<Item> Items { get; private set; }
 
         public Cart()
         {
@@ -14,18 +14,17 @@
 
         public float GetTotalPrice()
         {
-            float totalPrice = 0;
-            
-            foreach (Item item in Items)
-            {
-                totalPrice += item.Price;
-            }
-            return totalPrice;
+            return Items.Sum(item => item.Price);
         }
 
-        public int GetQuantity()
+        public void AddItem(Item item)
         {
-            return Items.Count;
+            Items.Add(item);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            Items.Remove(item);
         }
     }
 }
