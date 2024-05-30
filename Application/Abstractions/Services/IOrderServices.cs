@@ -16,7 +16,7 @@ namespace Application.Abstractions.Services
         public Guid AddNewItemToCart(Guid cartId, Guid itemId);
         public Guid RemoveItemFromCart(Guid cartId, Guid itemId);
         public List<Item> GetAllItemInCart(Guid cartId);
-        public List<Item> GetAllItems()
+        public List<Item> GetAllItems();
 
 
         // ITEM
