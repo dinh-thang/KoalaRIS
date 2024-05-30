@@ -24,7 +24,9 @@ const Order = () => {
               <p className="text-gray-600 mb-8">
                 Enjoy our various selections from different cuisines.
               </p>
-              <MenuItem />
+
+              {/* Replace Menu Items array with db */}
+              {menuItems.map(item => (<MenuItem {...item} />) )}
             </div>
           );
 };
