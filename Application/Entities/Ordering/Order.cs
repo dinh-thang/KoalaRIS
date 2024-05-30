@@ -16,16 +16,9 @@ namespace Application.Entities.Ordering
             Account = account;
         }
 
-        private float GetTotalPrice()
-        {
-            // Calculate the total price for all items in the cart
-            return Cart.Items.Sum(item => item.Price);
-        }
-
         public PaymentDetail GenerateReceipt()
         {
-            // Create and return a PaymentDetail object containing all necessary receipt info
-            throw new NotImplementedException();
+            return new PaymentDetail(Account.Name, Cart.Items, Cart.GetTotalPrice());
         }   
 
     }
