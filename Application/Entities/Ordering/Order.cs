@@ -9,6 +9,7 @@ namespace Application.Entities.Ordering
         public Cart Cart { get; set; } = null!;
         public Account Account { get; set; } = null!;
 
+        public Order() { }
         public Order(Account account, Cart cart)
         {
             Id = Guid.NewGuid();

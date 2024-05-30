@@ -10,6 +10,8 @@
         public Guid? CartID { get; set; }
         public Cart? Cart { get; set; }
 
+        public Item() { }
+
         public Item(string name, float price, string imageUrl)
         {
             Id = Guid.NewGuid();

@@ -9,6 +9,8 @@ namespace Application.Entities
         public DateTime ReserveTime { get; set; }
         public int ReserveQuantity { get; set; }
 
+        public Reservation() { }
+
         public Reservation(Account account, DateTime reserveTime, int quantity)
         {
             Id = Guid.NewGuid();
