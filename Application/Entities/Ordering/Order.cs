@@ -20,7 +20,7 @@ namespace Application.Entities.Ordering
         public PaymentDetail GenerateReceipt()
         {
             return new PaymentDetail(Account.Name, Cart.Items, Cart.GetTotalPrice());
-        }   
 
+        }   
     }
 }
