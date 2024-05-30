@@ -6,7 +6,7 @@ namespace Application.Entities.Ordering
     public class Order
     {
         public Guid Id { get; set; }
-        public Cart Cart { get; set; } = null!;
+        public Cart Cart { get; set; }
         public Account Account { get; set; } = null!;
 
         public Order(Account account, Cart cart)
