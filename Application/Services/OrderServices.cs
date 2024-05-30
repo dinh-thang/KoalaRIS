@@ -16,27 +16,20 @@ namespace Application.Services
             _accountRepository = accountRepository;
         }
 
-        public Guid CreateOrder(Guid cartId, Guid accountId)
+        public Guid CreateOrder(Cart cart, Guid accountId)
         {
-            throw new NotImplementedException();
+            var account = _accountRepository.GetById(accountId);
+
+            var order = new Order(account, cart);
+
+            _orderRepository.Add(order);
+            return order.Id;
         }
 
         public List<Order> GetAllOrders(Guid accountId)
         {
-            //if (account == null)
-            //{
-            //    throw new ArgumentNullException(nameof(account));
-            //}
-
-            //if (account.AccountType != AccountType.Staff)
-            //{
-            //    throw new UnauthorizedAccessException("Only admin accounts can retrieve order information.");
-            //}
-
-            //return _orderRepository.GetAll();
-
-            // lam lai cnay nheee
-            throw new NotImplementedException();
+            var account = _accountRepository.GetById(accountId);
+            return _orderRepository.GetAll();
         }
 
         public Order? GetOrderById(Guid id)
@@ -46,12 +39,11 @@ namespace Application.Services
 
         public PaymentDetail GetReceipt(Guid orderId)
         {
-            throw new NotImplementedException();
-        }
+            var order = _orderRepository.GetById(orderId);
 
-        public Guid AddNewOrder()
-        {
-            throw new NotImplementedException();
+            return order.GenerateReceipt();
         }
     }
 }
+
+
