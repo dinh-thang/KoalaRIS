@@ -6,7 +6,7 @@ namespace PublicAPI
 {
     public static class OrderEndpoints
     {
-        // orders
+        // ORDER
         public static IResult GetOrderById(Guid orderId, IOrderServices orderServices)
         {
             Order? order = orderServices.GetOrderById(orderId);
@@ -31,7 +31,11 @@ namespace PublicAPI
             return Results.Ok(receipt);
         }
 
-        // carts
+
+
+
+
+        // CART
         public static IResult InitNewCart(IOrderServices orderServices)
         {
             Guid cartId = orderServices.CreateNewCart();
@@ -54,7 +58,16 @@ namespace PublicAPI
             return Results.Ok();
         }
 
-        // items 
+        public static IResult GetAllItems(IOrderServices orderServices)
+        {
+            List<Item> items = orderServices.GetAllItems();  
+            return Results.Ok(items);
+        }
+
+
+
+
+        // ITEM 
         public static IResult CreateNewItem(string name, float price, string imageUrl, IOrderServices orderServices)
         {
             orderServices.CreateNewItem(name, price, imageUrl);

@@ -7,10 +7,13 @@ using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using PublicAPI;
 using PublicAPI.Endpoints;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -28,6 +31,7 @@ builder.Services.AddCors(builder =>
 // DbContext config
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Dependencies injection config
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
@@ -94,12 +98,17 @@ app.MapPost("/cart/add-item", (Guid itemId, Guid cartId, IOrderServices orderSer
 
 app.MapDelete("/cart/remove-item", (Guid itemId, Guid cartId, IOrderServices orderServices)
     => OrderEndpoints.RemoveItemFromCart(itemId, cartId, orderServices));
-app.MapGet("/cart/get-all", (Guid cartId, IOrderServices orderServices) 
-    => OrderEndpoints.GetAllItemsInCart(cartId, orderServices));
+
 
 // Item Endpoints
 app.MapPost("/item/add-new", (string name, float price, string imageUrl, IOrderServices orderServices)
     => OrderEndpoints.CreateNewItem(name, price, imageUrl, orderServices));
+
+app.MapGet("item/get-all", (IOrderServices orderServices)
+    => OrderEndpoints.GetAllItems(orderServices));
+
+app.MapGet("/item/cart/get-all", (Guid cartId, IOrderServices orderServices) 
+    => OrderEndpoints.GetAllItemsInCart(cartId, orderServices));
 
 
 

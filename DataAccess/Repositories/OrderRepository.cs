@@ -23,17 +23,28 @@ namespace DataAccess.Repositories
 
         public List<Order> GetAllOrders()
         {
-            return _db.Orders.ToList();
+            return _db.Orders
+                .Include(c => c.Cart)
+                .Include(a => a.Account)
+                .ToList();
         }
 
         public List<Order> GetOrdersByAccountId(Guid accountId)
         {
-            return _db.Orders.Where(o => o.Account.Id == accountId).ToList();
+            return _db.Orders
+                .Include(c => c.Cart)
+                .Include(a => a.Account)
+                .Where(o => o.Account.Id == accountId)
+                .ToList();
         }
 
         public Order? GetOrderById(Guid id)
         {
-            return _db.Orders.Find(id);
+            return _db.Orders
+                .Include(c => c.Cart)
+                .Include(i => i.Cart.Items)
+                .Include(a => a.Account)
+                .FirstOrDefault(o => o.Id == id);
         }
 
         // CART
@@ -45,7 +56,9 @@ namespace DataAccess.Repositories
 
         public Cart? GetCartById(Guid cartId)
         {
-            return _db.Carts.Include(i => i.Items).FirstOrDefault(c => c.Id == cartId);
+            return _db.Carts
+                .Include(i => i.Items)
+                .FirstOrDefault(c => c.Id == cartId);
         }
 
         public void UpdateCart(Cart cart)
@@ -68,13 +81,14 @@ namespace DataAccess.Repositories
 
         public List<Item> GetAllItemInCart(Guid cartId)
         {
-            Cart? cart = GetCartById(cartId);
+            Cart? cart = _db.Carts
+                .Include(c => c.Items)
+                .FirstOrDefault(c => c.Id == cartId);
 
             if (cart == null)
             {
                 throw new NullReferenceException();
             }
-            _db.Entry(cart).Collection(c => c.Items).Load();
             return cart.Items;
         }
 
