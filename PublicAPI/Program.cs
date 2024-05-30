@@ -26,8 +26,12 @@ builder.Services.AddCors(builder =>
 });
 
 // DbContext config
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("KoalaRis"));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 // Dependencies injection config
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
