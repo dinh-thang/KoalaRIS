@@ -13,25 +13,23 @@ namespace Application.Entities
         {
             Id = Guid.NewGuid();
             Account = account;
-            ReserveTime = reserveTime;
+            ReserveTime = CheckBookingTime(reserveTime);
             ReserveQuantity = CheckBookingQuantity(quantity);
         }
                 
         public int CheckBookingQuantity(int quantiy)
         {
-            // check booking quantity logic
             if (quantiy < 1)
             {
-                throw new NotImplementedException();
+                throw new ArgumentException();
             }
             return quantiy;
         }
         public DateTime CheckBookingTime(DateTime reserveTime)
         {
-            //  Check valid booking time 
             if (reserveTime < DateTime.Now)
             {
-                throw new NotImplementedException();
+                throw new ArgumentException();
             }
             return reserveTime;
         }

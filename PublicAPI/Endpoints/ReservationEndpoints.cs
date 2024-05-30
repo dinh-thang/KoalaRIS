@@ -6,19 +6,19 @@ namespace PublicAPI
     {
         public static IResult MakeBooking(Guid accountId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
         {
-            reservationServices.MakeBooking(accountId, bookingTime, bookingQuantity);   
+            reservationServices.MakeReservation(accountId, bookingTime, bookingQuantity);   
             return Results.Ok();
         }
 
-        public static IResult UpdateBooking(Guid reservationId, DateTime? bookingTime, int? bookingQuantity, IReservationServices reservationServices)
+        public static IResult UpdateBooking(Guid reservationId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
         {
-            reservationServices.UpdateBooking(reservationId, bookingTime, bookingQuantity);
+            reservationServices.UpdateReservation(reservationId, bookingTime, bookingQuantity);
             return Results.Ok();
         }
 
         public static IResult CancelBooking(Guid bookingId, IReservationServices reservationService)
         {
-            reservationService.CancelBooking(bookingId);
+            reservationService.CancelReservation(bookingId);
             return Results.Ok();
         }
     }

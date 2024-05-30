@@ -57,7 +57,7 @@ app.MapGet("/login", (string email, IAccountServices accountServices) => Account
 app.MapPost("/make-booking", (Guid accountId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
     => ReservationEndpoints.MakeBooking(accountId, bookingTime, bookingQuantity, reservationServices));
 
-app.MapPost("/update-booking", (Guid bookingId, DateTime? bookingTime, int? bookingQuantity, IReservationServices reservationServices)
+app.MapPost("/update-booking", (Guid bookingId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
     => ReservationEndpoints.UpdateBooking(bookingId, bookingTime, bookingQuantity, reservationServices));
 
 app.MapPost("/cancel-booking", (Guid bookingId, IReservationServices reservationServices)

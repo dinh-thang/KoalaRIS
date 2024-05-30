@@ -4,8 +4,8 @@ namespace Application.Abstractions.Services
 {
     public interface IReservationServices
     {
-        public void MakeBooking(Guid accountId, DateTime reservationTime, int bookingQuantity);
-        public void UpdateBooking(Guid reservationId, DateTime? reservationTime, int? bookingQuantity);
-        public void CancelBooking(Guid bookingId);
+        public void MakeReservation(Guid accountId, DateTime reservationTime, int bookingQuantity);
+        public void UpdateReservation(Guid reservationId, DateTime reservationTime, int bookingQuantity);
+        public void CancelReservation(Guid bookingId);
     }
 }
