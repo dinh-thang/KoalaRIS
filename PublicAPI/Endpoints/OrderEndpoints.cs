@@ -32,10 +32,20 @@ namespace PublicAPI
         }
 
         // carts
+        public static IResult InitNewCart(IOrderServices orderServices)
+        {
+            Guid cartId = orderServices.CreateNewCart();
+            return Results.Ok(cartId);
+        }
         public static IResult AddItemToCart(Guid itemId, Guid cartId, IOrderServices orderServices)
         {
             orderServices.AddNewItemToCart(cartId, itemId);
             return Results.Ok();
+        }
+        public static IResult GetAllItemsInCart(Guid cartId, IOrderServices orderServices)
+        {
+            List<Item> items = orderServices.GetAllItemInCart(cartId);
+            return Results.Ok(items);
         }
 
         public static IResult RemoveItemFromCart(Guid itemId, Guid cartId, IOrderServices orderServices)

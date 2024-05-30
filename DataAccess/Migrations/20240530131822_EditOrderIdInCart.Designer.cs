@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240530131822_EditOrderIdInCart")]
+    partial class EditOrderIdInCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,6 +74,9 @@ namespace DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CartID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -83,6 +89,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartID");
 
                     b.ToTable("Items");
                 });
@@ -125,26 +133,20 @@ namespace DataAccess.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("CartItem", b =>
-                {
-                    b.Property<Guid>("CartsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ItemsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CartsId", "ItemsId");
-
-                    b.HasIndex("ItemsId");
-
-                    b.ToTable("CartItem");
-                });
-
             modelBuilder.Entity("Application.Entities.Ordering.Cart", b =>
                 {
                     b.HasOne("Application.Entities.Ordering.Order", null)
                         .WithOne("Cart")
                         .HasForeignKey("Application.Entities.Ordering.Cart", "OrderId");
+                });
+
+            modelBuilder.Entity("Application.Entities.Ordering.Item", b =>
+                {
+                    b.HasOne("Application.Entities.Ordering.Cart", "Cart")
+                        .WithMany("Items")
+                        .HasForeignKey("CartID");
+
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Order", b =>
@@ -169,19 +171,9 @@ namespace DataAccess.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("CartItem", b =>
+            modelBuilder.Entity("Application.Entities.Ordering.Cart", b =>
                 {
-                    b.HasOne("Application.Entities.Ordering.Cart", null)
-                        .WithMany()
-                        .HasForeignKey("CartsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Application.Entities.Ordering.Item", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Order", b =>

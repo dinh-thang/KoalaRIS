@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Entities.Ordering;
 using DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories
 {
@@ -19,7 +20,6 @@ namespace DataAccess.Repositories
             _db.Orders.Add(newOrder);
             _db.SaveChanges();
         }
-
 
         public List<Order> GetAllOrders()
         {
@@ -45,7 +45,7 @@ namespace DataAccess.Repositories
 
         public Cart? GetCartById(Guid cartId)
         {
-            return _db.Carts.Find(cartId);
+            return _db.Carts.Include(i => i.Items).FirstOrDefault(c => c.Id == cartId);
         }
 
         public void UpdateCart(Cart cart)
@@ -64,6 +64,23 @@ namespace DataAccess.Repositories
         {            
             _db.Items.Add(item);
             _db.SaveChanges();
+        }
+
+        public List<Item> GetAllItemInCart(Guid cartId)
+        {
+            Cart? cart = GetCartById(cartId);
+
+            if (cart == null)
+            {
+                throw new NullReferenceException();
+            }
+            _db.Entry(cart).Collection(c => c.Items).Load();
+            return cart.Items;
+        }
+
+        public List<Item> GetAllItems()
+        {
+            return _db.Items.ToList();
         }
     }
 }

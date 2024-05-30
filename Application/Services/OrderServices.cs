@@ -44,6 +44,11 @@ namespace Application.Services
             return itemId;
         }
 
+        public List<Item> GetAllItemInCart(Guid cartId)
+        {
+            return _orderRepository.GetAllItemInCart(cartId);
+        }
+
         public Guid CreateNewItem(string name, float price, string imageUrl)
         {
             Item item = new Item(name, price, imageUrl);
@@ -68,6 +73,11 @@ namespace Application.Services
             cart.RemoveItem(item);
             _orderRepository.UpdateCart(cart);
             return itemId;
+        }
+
+        public List<Item> GetAllItems()
+        {
+            return _orderRepository.GetAllItems();
         }
 
         // ORDER
