@@ -42,6 +42,7 @@ namespace DataAccess.Repositories
         {
             return _db.Orders
                 .Include(c => c.Cart)
+                .Include(i => i.Cart.Items)
                 .Include(a => a.Account)
                 .FirstOrDefault(o => o.Id == id);
         }
