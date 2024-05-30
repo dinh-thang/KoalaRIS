@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import creditcard from '../../images/creditcard.png';
 import cards from '../../images/cards.png';
+import { useNavigate } from "react-router-dom";
+import { pageRoutes } from '../../constants/pageRoutes.js';
 
 const Checkout = () => {
   const [formValues, setFormValues] = useState({
@@ -15,6 +17,11 @@ const Checkout = () => {
     expiryDate: "",
     cvc: "",
   });
+
+  const navigate = useNavigate();
+  const navigateToCheckOut = () => {
+    navigate(pageRoutes.CHECKOUT_CONFIRMATION);
+  };
 
   const [formErrors, setFormErrors] = useState({});
 
@@ -217,7 +224,7 @@ const Checkout = () => {
         <input
           type="submit"
           value="Pay"
-          className="bg-red hover:bg-red-hover text-white font-bold py-2 px-4 rounded w-full cursor-pointer"
+          className="bg-red hover:bg-red-hover text-white font-bold py-2 px-4 rounded w-full cursor-pointer" onClick={navigateToCheckOut}
         />
       </form>
     </div>
