@@ -2,7 +2,7 @@ import React from 'react';
 
 const CartItem = ({ item, onRemove }) => {
   return (
-    <li className="flex justify-between items-center mb-4">
+    <li className="flex justify-between items-center bg-white p-3 rounded mb-4">
       <div className="flex items-center">
         <img src={item.imageUrl} alt={item.name} className="w-16 h-16 object-cover rounded mr-4"/>
         <div>
@@ -12,8 +12,8 @@ const CartItem = ({ item, onRemove }) => {
       </div>
       <button
         onClick={onRemove}
-        className="bg-red-500 text-white px-2 py-1 rounded"
-      >
+        className=" text-dark-blue px-2 py-1 text-5xl rounded"
+      > 
         &times;
       </button>
     </li>
