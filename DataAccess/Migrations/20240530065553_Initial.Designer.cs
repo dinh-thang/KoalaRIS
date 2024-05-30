@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240524091021_InitMigration")]
-    partial class InitMigration
+    [Migration("20240530065553_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Item", b =>
@@ -73,10 +73,7 @@ namespace DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("CartID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("CartId")
+                    b.Property<Guid?>("CartID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeliverable")
@@ -94,9 +91,9 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CartId");
+                    b.HasIndex("CartID");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Order", b =>
@@ -108,27 +105,36 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PaymentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
-                    b.HasIndex("PaymentId");
-
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Application.Entities.Ordering.Payment", b =>
+            modelBuilder.Entity("Application.Entities.Reservation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ReserveQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReserveTime")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Payment");
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Cart", b =>
@@ -142,9 +148,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Application.Entities.Ordering.Item", b =>
                 {
-                    b.HasOne("Application.Entities.Ordering.Cart", null)
+                    b.HasOne("Application.Entities.Ordering.Cart", "Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartID");
+
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Order", b =>
@@ -155,15 +163,18 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Application.Entities.Ordering.Payment", "Payment")
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Application.Entities.Reservation", b =>
+                {
+                    b.HasOne("Application.Entities.Auth.Account", "Account")
                         .WithMany()
-                        .HasForeignKey("PaymentId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Account");
-
-                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("Application.Entities.Ordering.Cart", b =>

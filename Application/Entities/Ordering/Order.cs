@@ -10,17 +10,15 @@ namespace Application.Entities.Ordering
         public Account Account { get; set; } = null!;
         public bool IsCompleted { get; private set; }
 
-        public Order(Account account)
+        private Order()
+        {
+        }
+
+        public Order(Account account)   
         {
             Id = Guid.NewGuid();
             Cart = new Cart();
             Account = account;
-        }
-
-        private float GetTotalPrice()
-        {
-            // return total price for all the Item in the Cart
-            throw new NotImplementedException();
         }
 
         public void MarkCompleted()

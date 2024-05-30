@@ -4,7 +4,7 @@
     {
         public Guid Id { get; set; }
         public Guid OrderId { get; set; }
-        public IList<Item> Items { get; set; }
+        public List<Item> Items { get; set; }
 
         public Cart()
         {

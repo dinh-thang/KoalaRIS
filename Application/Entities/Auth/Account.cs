@@ -10,7 +10,12 @@ namespace Application.Entities.Auth
         public string Name { get; set; } = "";
         public string Email { get; private set; } = "";
         public int PhoneNumber { get; private set; }
-        public AccountType AccountType { get; init; } 
+        public AccountType AccountType { get; init; }
+
+        public Account()
+        {
+            
+        }
 
         public Account(string name, string email, int phoneNumber, AccountType accountType)
         {
