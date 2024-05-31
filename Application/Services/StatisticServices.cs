@@ -19,21 +19,45 @@ namespace Application.Services
             _bookingRepo = bookingRepo;
         }
 
-        public List<Item> AdminBestSeller()
+        private bool IsAdmin(Guid accountId)
         {
-            throw new NotImplementedException();
+            Account? account = _accountRepo.GetById(accountId);
+            if (account == null)
+            {
+                throw new ArgumentException("Cant find account with id:" + accountId.ToString());
+            }
+            
+            if (account.AccountType != AccountType.Staff)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public int AdminTotalDineInOrders()
+        public int AdminTotalDineInOrders(Guid accountId)
         {
-            //int total = 0;
+            if (!IsAdmin(accountId))
+            {
+                throw new InvalidOperationException("Only staff can access the apis.");
+            }
+            int total = 0;
 
-            //foreach (Order order in )
-            throw new NotSupportedException();
+            foreach (Order order in _orderRepo.GetAllOrders())
+            {
+                if (order.DeliveryDetail == null)
+                {
+                    total++;
+                }
+            }
+            return total;
         }
 
-        public int AdminTotalGuests()
+        public int AdminTotalGuests(Guid accountId)
         {
+            if (!IsAdmin(accountId))
+            {
+                throw new InvalidOperationException("Only staff can access the apis.");
+            }
             int sumGuest = 0;
 
             foreach (Reservation booking in _bookingRepo.GetAll())
@@ -43,26 +67,40 @@ namespace Application.Services
             return sumGuest;
         }
 
-        public float AdminTotalSaleToday()
+        public float AdminTotalSaleToday(Guid accountId)
         {
+            if (!IsAdmin(accountId))
+            {
+                throw new InvalidOperationException("Only staff can access the apis.");
+            }
             float totalSale = 0;
 
             foreach (Order order in _orderRepo.GetAllOrders())
             {
-                totalSale += order.GenerateReceipt().Total;
+                if (order.Created == DateTime.Now)
+                {
+                    totalSale += order.Cart.GetTotalPrice();
+                }
             }
             return totalSale;
         }
 
-        public int AdminTotalTakeawayOrders()
+        public int AdminTotalTakeawayOrders(Guid accountId)
         {
-            int totalTakeaway = 0;
+            if (!IsAdmin(accountId))
+            {
+                throw new InvalidOperationException("Only staff can access the apis.");
+            }
+            int total = 0;
 
             foreach (Order order in _orderRepo.GetAllOrders())
             {
-                
+                if (order.DeliveryDetail != null)
+                {
+                    total++;
+                }
             }
-            return totalTakeaway;
+            return total;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Application.Entities.Ordering
         public Account Account { get; set; } = null!;
         public PaymentDetail PaymentDetail { get; set; } = null!;
         public DeliveryDetail? DeliveryDetail { get; set; }
+        public DateTime Created {  get; init; }
         public bool IsCompleted { get; private set; }
 
         public Order() { }
@@ -20,6 +21,7 @@ namespace Application.Entities.Ordering
             Account = account;
             DeliveryDetail = null;
             IsCompleted = false;
+            Created = DateTime.Now;
         }
 
         public void SetPaymentDetail(int cardNumber, DateTime expiryDate, int cvc)

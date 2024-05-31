@@ -41,6 +41,7 @@ builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IAccountServices, AccountServices>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<IReservationServices, ReservationServices>();
+builder.Services.AddScoped<IStatisticServices, StatisticServices>();
 
 var app = builder.Build();
 
@@ -75,8 +76,20 @@ app.MapGet("/booking/get-all", (Guid accountId, IReservationServices reservation
 
 
 // admin
-app.MapGet("admin/booking/get-all", (Guid accountId, IReservationServices reservationServices) 
+app.MapGet("/admin/booking/get-all", (Guid accountId, IReservationServices reservationServices) 
     => ReservationEndpoints.AdminGetAllBookings(accountId, reservationServices));
+
+app.MapGet("/admin/get-total-sale-today", (Guid accountId, IStatisticServices services)
+    => StatisticEndpoints.AdminGetTotalSaleToday(accountId, services));
+
+app.MapGet("/admin/get-total-dinein", (Guid accountId, IStatisticServices services) 
+    => StatisticEndpoints.AdminGetTotalDineInOrders(accountId, services));
+
+app.MapGet("/admin/get-total-takeaway", (Guid accountId, IStatisticServices services) 
+    => StatisticEndpoints.AdminGetTotalTakeawayOrders(accountId, services));
+
+app.MapGet("/admin/get-total-guests", (Guid accountId, IStatisticServices services) 
+    => StatisticEndpoints.AdminGetTotalGuests(accountId, services));
 
 
 // order
