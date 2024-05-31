@@ -11,6 +11,7 @@ import CheckoutConfirmation from "./pages/checkout/confirm.jsx";
 import Admin from "./pages/admin/admin.jsx";
 import AdminOrder from "./pages/admin/adminorder.jsx";
 import AdminReservation from "./pages/admin/adminreservation.jsx";
+import Reservation from "./pages/boooking/reservation.jsx";
 
 const App = () => {
   const cors = require("cors");
@@ -23,7 +24,7 @@ const App = () => {
     { path: pageRoutes.ADMIN, element: <Admin /> },
     { path: pageRoutes.ADMIN_ORDER, element: <AdminOrder /> },
     { path: pageRoutes.ADMIN_RESERVATION, element: <AdminReservation /> },
-    { path: pageRoutes.CHECKOUT_DINEIN, element: <CheckOutDineIn /> },
+    { path: pageRoutes.RESERVATION, element: <Reservation /> },
   ];
 
   return (
