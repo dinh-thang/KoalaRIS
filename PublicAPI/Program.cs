@@ -76,7 +76,7 @@ app.MapGet("/booking/get-all", (Guid accountId, IReservationServices reservation
 
 
 // admin
-app.MapGet("/admin/booking/get-all", (Guid accountId, IReservationServices reservationServices) 
+app.MapGet("/admin/get-all-booking", (Guid accountId, IReservationServices reservationServices) 
     => ReservationEndpoints.AdminGetAllBookings(accountId, reservationServices));
 
 app.MapGet("/admin/get-total-sale-today", (Guid accountId, IStatisticServices services)
@@ -93,44 +93,44 @@ app.MapGet("/admin/get-total-guests", (Guid accountId, IStatisticServices servic
 
 
 // order
-app.MapGet("/order/get", (Guid orderId, IOrderServices orderServices)
+app.MapGet("/order/get-by-id", (Guid orderId, IOrderServices orderServices)
     => OrderEndpoints.GetOrderById(orderId, orderServices));
 
-app.MapPost("/order/add", (Guid cart, Guid accountId, IOrderServices orderServices)
+app.MapPost("/order/make-order", (Guid cart, Guid accountId, IOrderServices orderServices)
     => OrderEndpoints.MakeOrder(cart, accountId, orderServices));
 
 app.MapGet("/order/get-all-for-account", (Guid accountId, IOrderServices orderServices)
     => OrderEndpoints.GetAllOrdersOfAnAccount(accountId, orderServices));
 
-app.MapGet("/order/get-receipt", (Guid orderId, IOrderServices orderServices)
+app.MapGet("/order/complete-order", (Guid orderId, IOrderServices orderServices)
     => OrderEndpoints.CompleteOrder(orderId, orderServices));
 
-app.MapPost("/order/update/delivery-detail", (Guid orderId, string address, string description, IOrderServices orderServices) 
+app.MapPost("/order/add-deli-detail", (Guid orderId, string address, string description, IOrderServices orderServices) 
     => OrderEndpoints.AddDeliveryDetail(orderId, address, description, orderServices));
 
-app.MapPost("/order/update/payment-detail", (Guid orderId, int cardNumber, DateTime expiryDate, int cvc, IOrderServices orderServices)
+app.MapPost("/order/add-payment-detail", (Guid orderId, int cardNumber, DateTime expiryDate, int cvc, IOrderServices orderServices)
     => OrderEndpoints.AddPaymentDetail(orderId, cardNumber, expiryDate, cvc, orderServices));
 
 
 // Cart Endpoints
-app.MapGet("/cart", (IOrderServices orderServices)
+app.MapGet("/cart/init", (IOrderServices orderServices)
     => OrderEndpoints.InitNewCart(orderServices));
 
-app.MapPost("/cart/add-item", (Guid itemId, Guid cartId, IOrderServices orderServices)
+app.MapPost("/cart/add-item-to-cart", (Guid itemId, Guid cartId, IOrderServices orderServices)
     => OrderEndpoints.AddItemToCart(itemId, cartId, orderServices));
 
-app.MapDelete("/cart/remove-item", (Guid itemId, Guid cartId, IOrderServices orderServices)
+app.MapDelete("/cart/remove-item-from-cart", (Guid itemId, Guid cartId, IOrderServices orderServices)
     => OrderEndpoints.RemoveItemFromCart(itemId, cartId, orderServices));
 
 
 // Item Endpoints
-app.MapPost("/item/add-new", (string name, float price, string imageUrl, IOrderServices orderServices)
+app.MapPost("/item/add-new-item", (string name, float price, string imageUrl, IOrderServices orderServices)
     => OrderEndpoints.CreateNewItem(name, price, imageUrl, orderServices));
 
-app.MapGet("item/get-all", (IOrderServices orderServices)
+app.MapGet("item/get-all-items", (IOrderServices orderServices)
     => OrderEndpoints.GetAllItems(orderServices));
 
-app.MapGet("/item/cart/get-all", (Guid cartId, IOrderServices orderServices) 
+app.MapGet("/item/cart/get-all-items-in-cart", (Guid cartId, IOrderServices orderServices) 
     => OrderEndpoints.GetAllItemsInCart(cartId, orderServices));
 
 
