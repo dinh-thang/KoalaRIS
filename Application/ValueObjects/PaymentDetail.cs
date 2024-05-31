@@ -4,6 +4,7 @@ namespace Application.ValueObjects
 {
     public class PaymentDetail
     {
+        public Guid Id { get; set; }
         public Guid OrderId { get; set; }
         public DateTime TransactionTime { get; private set; } 
         public int CardNumber { get; private set; }
