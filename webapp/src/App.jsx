@@ -6,6 +6,7 @@ import Login from "./pages/login/login.jsx";
 import './index.css';
 import {pageRoutes} from "./constants/pageRoutes.js";
 import Checkout from "./pages/checkout/checkout.jsx";
+import CheckOutDineIn from "./pages/checkout/checkout_dinein.jsx";
 import CheckoutConfirmation from "./pages/checkout/confirm.jsx";
 import Admin from "./pages/admin/admin.jsx";
 import AdminOrder from "./pages/admin/adminorder.jsx";
@@ -22,6 +23,7 @@ const App = () => {
     { path: pageRoutes.ADMIN, element: <Admin /> },
     { path: pageRoutes.ADMIN_ORDER, element: <AdminOrder /> },
     { path: pageRoutes.ADMIN_RESERVATION, element: <AdminReservation /> },
+    { path: pageRoutes.CHECKOUT_DINEIN, element: <CheckOutDineIn /> },
   ];
 
   return (

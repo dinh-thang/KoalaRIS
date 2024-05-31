@@ -40,6 +40,13 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    async function get() {
+      const data = await fetch(apiRoutes.HTTP + apiRoutes.ITEM_GET_ALL);
+    }
+    get().then();
+  }, []);
+
   return (
     <div className="bg-white flex flex-col h-screen">
       <div className="flex justify-start items-start p-4 z-10 ml-10 pt-10">

@@ -2,20 +2,9 @@ import dinein from '../../images/dinein.png';
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../../constants/pageRoutes.js";
 import { React, useState, useEffect } from "react";
+import AdminSideBar from "../../components/adminSideBar.jsx";
 
 const Admin = () => {
-    const navigate = useNavigate();
-
-    const navigateToAdmin = () => {
-      navigate(pageRoutes.ADMIN);
-    };
-    const navigateToAdminOrder = () => {
-        navigate(pageRoutes.ADMIN_ORDER);
-    };
-    
-    const navigateToAdminReservation = () => {
-        navigate(pageRoutes.ADMIN_RESERVATION);
-    };
 
     const [totalSale, setTotalSale] = useState([]);
 
@@ -33,28 +22,11 @@ const Admin = () => {
     return (
     <div class="flex min-h-screen">
         {/* Sidebar */}
-        <div class="w-32 bg-white shadow-lg flex flex-col justify-between">
-            <div class="p-5">
-                <button class="p-2 my-2 w-full bg-blue-500 text-white rounded text-left hover:bg-blue-600" onClick={navigateToAdmin}>
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>    
-                </button> 
-                <button class="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdminOrder}>
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
-                </button>
-                <button class="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdminReservation}>
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
-                </button>
-            </div>
-            <div class="p-5">
-                <button class="p-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300">
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
-                </button>
-            </div>
-        </div>
+        <AdminSideBar />
 
         {/* Main Content */}
         <div class="flex-1 p-8">
-            <h1 class="font-bold text-2xl mb-5">Admin Page</h1>
+            <h1 class="font-bold text-red text-2xl mb-5">Admin Page</h1>
 
             {/* Summary Section */}
             <div class="grid grid-cols-3 gap-4 mb-5">
@@ -118,7 +90,7 @@ const Admin = () => {
                     </tbody>
                 </table>
                 <div class="flex justify-center">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">More</button>
+                    <button class="bg-red hover:bg-red-hover text-white font-bold py-2 px-16 rounded">More</button>
                 </div>
             </div>
         </div>
