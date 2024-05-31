@@ -82,7 +82,7 @@ app.MapGet("/admin/get-all-booking", (Guid accountId, IReservationServices reser
 app.MapGet("/admin/get-total-sale-today", (Guid accountId, IStatisticServices services)
     => StatisticEndpoints.AdminGetTotalSaleToday(accountId, services));
 
-app.MapGet("/admin/get-total-dinein", (Guid accountId, IStatisticServices services) 
+app.MapGet("/admin/get-total-dine-in", (Guid accountId, IStatisticServices services) 
     => StatisticEndpoints.AdminGetTotalDineInOrders(accountId, services));
 
 app.MapGet("/admin/get-total-takeaway", (Guid accountId, IStatisticServices services) 

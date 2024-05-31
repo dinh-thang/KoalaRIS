@@ -1,6 +1,4 @@
-﻿using Application.Entities.Ordering;
-
-namespace Application.Abstractions.Services
+﻿namespace Application.Abstractions.Services
 {
     public interface IStatisticServices
     {

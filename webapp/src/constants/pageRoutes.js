@@ -3,8 +3,8 @@ export const pageRoutes = {
     LOGIN: '/login',
     ORDER: '/order',
     CHECKOUT: '/checkout',
-    CHECKOUT_CONFIRMATION: '/checkoutConfirmation',
-    ADMIN: '/admin',
-    ADMIN_ORDER: '/adminOrder',
-    ADMIN_RESERVATION: '/adminReservation',
+    CHECKOUT_CONFIRMATION: '/checkout',
+    ADMIN: '/admin/dashboard',
+    ADMIN_ORDER: '/admin/order',
+    ADMIN_RESERVATION: '/admin/reservation',
 }
