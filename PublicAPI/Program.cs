@@ -55,10 +55,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-
 // login
-app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
-app.MapGet("/signup", (string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices) => AccountEndpoints.SignUp(username, email, phonenumber, accountType, accountServices));
+app.MapGet("/login", (string username, IAccountServices accountServices) => AccountEndpoints.Login(username, accountServices));
+app.MapGet("/signup", (string username, AccountType accountType, IAccountServices accountServices) => AccountEndpoints.SignUp(username, accountType, accountServices));
+app.MapPost("/account/update", (Guid accountId, int phoneNumber, string email, IAccountServices accountServices) => AccountEndpoints.Update(accountId, phoneNumber, email, accountServices));
 
 
 // booking
@@ -128,13 +128,12 @@ app.MapPost("/item/add-new-item", (string name, float price, string imageUrl, IO
     => OrderEndpoints.CreateNewItem(name, price, imageUrl, orderServices));
 
 app.MapGet("item/get-all-items", (IOrderServices orderServices)
-    => OrderEndpoints.GetAllItems(orderServices));
+    => OrderEndpoints.GetAllItems(orderServices)).RequireCors("AllowAllOrigins");
+
 
 app.MapGet("/item/cart/get-all-items-in-cart", (Guid cartId, IOrderServices orderServices) 
     => OrderEndpoints.GetAllItemsInCart(cartId, orderServices));
 
 
-
 app.UseCors("AllowAllOrigins");
-
 app.Run();

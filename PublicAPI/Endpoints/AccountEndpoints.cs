@@ -8,15 +8,14 @@ namespace PublicAPI.Endpoints
         // check database for email
         public static IResult Login(string email, IAccountServices accountServices)
         {
-            bool result = accountServices.LogIn(email);
+            Guid result = accountServices.LogIn(email);
 
             return Results.Ok(result);
         }
 
-        // basically create a new account
-        public static IResult SignUp(string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices)
+        public static IResult SignUp(string username, AccountType accountType, IAccountServices accountServices)
         {
-            bool result = accountServices.SignUp(username, email, phonenumber, accountType);
+            Guid result = accountServices.SignUp(username, accountType);
             return Results.Ok(result);
         }
 
@@ -30,6 +29,12 @@ namespace PublicAPI.Endpoints
         {
             List<Account> result = accountServices.GetAllCustomer();
             return Results.Ok(result);
+        }
+
+        public static IResult Update(Guid accountId, int phoneNumber, string email, IAccountServices accountServices)
+        {
+            Guid id = accountServices.Update(accountId, phoneNumber, email);
+            return Results.Ok(id);
         }
     }
 }

@@ -14,31 +14,30 @@ namespace Application.Services
             _repo = repo;
         }
 
-        public bool SignUp(string userName, string email, int phoneNumber, AccountType accountType) //when signup button is clicked
+        public Guid SignUp(string userName, AccountType accountType)
         {
-            //new Account
+            Account newAccount = new Account(userName, accountType);
             try
             {
-                Account newAccount = new Account(userName, email, phoneNumber, accountType);
                 _repo.Add(newAccount);
-                Console.WriteLine("Account created."); //signal GUI sucessful
             }
             catch (ArgumentException ex)
             {
                 throw new ArgumentException($"Failed to create account: {ex.Message}", ex);
             }
-            return true;
+            return newAccount.Id;
         } 
 
-        public bool LogIn(string email)
+        public Guid LogIn(string username)
         {   
-            Account? account = _repo.GetByEmail(email);
+            Account? account = _repo.GetByUserName(username);
                 
             if (account == null)
             {
-                return false;
+                throw new ArgumentException($"Failed to login:");
+
             }
-            return true;
+            return account.Id;
         }
 
         public List<Account> GetAllCustomer()
@@ -71,6 +70,19 @@ namespace Application.Services
             }
 
             return result;
+        }
+
+        public Guid Update(Guid accountId, int phoneNumber, string email)
+        {
+            Account? account = _repo.GetById(accountId);
+
+            if (account == null)
+            {
+                throw new ArgumentException($"Failed to login:");
+            }
+            account.SetPhoneNumber(phoneNumber);
+            account.SetEmail(email);    
+            return account.Id;
         }
     }
 }

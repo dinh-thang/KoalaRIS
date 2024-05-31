@@ -1,6 +1,5 @@
 export const apiRoutes = {
     HTTP: "http://localhost:5000",
-    HTTPS: "http://localhost:5001",
 
     LOGIN: "/login",
     SIGNUP: "/signup",

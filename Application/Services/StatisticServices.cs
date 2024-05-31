@@ -77,7 +77,7 @@ namespace Application.Services
 
             foreach (Order order in _orderRepo.GetAllOrders())
             {
-                if (order.Created == DateTime.Now)
+                if (order.Created.Date == DateTime.Now.Date)
                 {
                     totalSale += order.Cart.GetTotalPrice();
                 }

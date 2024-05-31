@@ -12,6 +12,7 @@ import AdminOrder from "./pages/admin/adminorder.jsx";
 import AdminReservation from "./pages/admin/adminreservation.jsx";
 
 const App = () => {
+  const cors = require("cors");
   const routes = [
     { path: pageRoutes.HOME, element: <Home /> },
     { path: pageRoutes.LOGIN, element: <Login /> },

@@ -17,12 +17,10 @@ namespace Application.Entities.Auth
             
         }
 
-        public Account(string name, string email, int phoneNumber, AccountType accountType)
+        public Account(string name, AccountType accountType)
         {
             Id = Guid.NewGuid();
             Name = name;
-            SetEmail(email);
-            SetPhoneNumber(phoneNumber);
             AccountType = accountType;
         }
 

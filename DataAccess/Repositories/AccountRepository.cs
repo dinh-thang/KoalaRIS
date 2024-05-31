@@ -33,9 +33,9 @@ namespace DataAccess.Repositories
             return _db.Accounts.ToList();
         }
 
-        public Account? GetByEmail(string email)
+        public Account? GetByUserName(string username)
         {
-            return _db.Accounts.Single(a => a.Email == email);
+            return _db.Accounts.Single(a => a.Name == username);
         }
 
         public Account? GetById(Guid id)
