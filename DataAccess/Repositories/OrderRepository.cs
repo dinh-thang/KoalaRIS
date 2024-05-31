@@ -47,11 +47,31 @@ namespace DataAccess.Repositories
                 .FirstOrDefault(o => o.Id == id);
         }
 
+        public void UpdateOrder(Order newOrder)
+        {
+            _db.Orders.Update(newOrder);
+            _db.SaveChanges();
+        }
+
+
         // CART
         public void AddNewCart(Cart cart)
         {
             _db.Carts.Add(cart);
             _db.SaveChanges();
+        }
+
+        public List<Item> GetAllItemInCart(Guid cartId)
+        {
+            Cart? cart = _db.Carts
+                .Include(c => c.Items)
+                .FirstOrDefault(c => c.Id == cartId);
+
+            if (cart == null)
+            {
+                throw new NullReferenceException();
+            }
+            return cart.Items;
         }
 
         public Cart? GetCartById(Guid cartId)
@@ -79,22 +99,14 @@ namespace DataAccess.Repositories
             _db.SaveChanges();
         }
 
-        public List<Item> GetAllItemInCart(Guid cartId)
-        {
-            Cart? cart = _db.Carts
-                .Include(c => c.Items)
-                .FirstOrDefault(c => c.Id == cartId);
-
-            if (cart == null)
-            {
-                throw new NullReferenceException();
-            }
-            return cart.Items;
-        }
-
         public List<Item> GetAllItems()
         {
             return _db.Items.ToList();
+        }
+
+        public void DeleteItem(Item item)
+        {
+            _db.Items.Remove(item);
         }
     }
 }

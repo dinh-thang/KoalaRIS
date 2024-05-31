@@ -59,6 +59,7 @@ app.UseHttpsRedirection();
 app.MapGet("/login", (string email, IAccountServices accountServices) => AccountEndpoints.Login(email, accountServices));
 app.MapGet("/signup", (string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices) => AccountEndpoints.SignUp(username, email, phonenumber, accountType, accountServices));
 
+
 // booking
 app.MapPost("/booking/make-booking", (Guid accountId, DateTime bookingTime, int bookingQuantity, IReservationServices reservationServices)
     => ReservationEndpoints.MakeBooking(accountId, bookingTime, bookingQuantity, reservationServices));
@@ -72,9 +73,11 @@ app.MapPost("/booking/cancel", (Guid bookingId, IReservationServices reservation
 app.MapGet("/booking/get-all", (Guid accountId, IReservationServices reservationServices)
     => ReservationEndpoints.GetAllBookingsOfAnAccount(accountId, reservationServices));
 
+
 // admin
 app.MapGet("admin/booking/get-all", (Guid accountId, IReservationServices reservationServices) 
     => ReservationEndpoints.AdminGetAllBookings(accountId, reservationServices));
+
 
 // order
 app.MapGet("/order/get", (Guid orderId, IOrderServices orderServices)
@@ -87,7 +90,14 @@ app.MapGet("/order/get-all-for-account", (Guid accountId, IOrderServices orderSe
     => OrderEndpoints.GetAllOrdersOfAnAccount(accountId, orderServices));
 
 app.MapGet("/order/get-receipt", (Guid orderId, IOrderServices orderServices)
-    => OrderEndpoints.GetReceipt(orderId, orderServices));
+    => OrderEndpoints.CompleteOrder(orderId, orderServices));
+
+app.MapPost("/order/update/delivery-detail", (Guid orderId, string address, string description, IOrderServices orderServices) 
+    => OrderEndpoints.AddDeliveryDetail(orderId, address, description, orderServices));
+
+app.MapPost("/order/update/payment-detail", (Guid orderId, int cardNumber, DateTime expiryDate, int cvc, IOrderServices orderServices)
+    => OrderEndpoints.AddPaymentDetail(orderId, cardNumber, expiryDate, cvc, orderServices));
+
 
 // Cart Endpoints
 app.MapGet("/cart", (IOrderServices orderServices)

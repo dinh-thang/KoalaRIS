@@ -1,8 +1,8 @@
 import dinein from '../../images/dinein.png';
 
-const CheckoutConfirmation = () => {
+const checkOutConfirmation = () => {
     return (
-    <div class="max-w-4xl mx-auto my-20 relative">
+    <div class="max-w-4xl mx-auto mt-10">
         <img src={dinein} alt="Fries" class="mx-auto relative w-20"></img>
 
 
@@ -42,4 +42,4 @@ const CheckoutConfirmation = () => {
     )
 }
 
-export default CheckoutConfirmation;
+export default checkOutConfirmation;

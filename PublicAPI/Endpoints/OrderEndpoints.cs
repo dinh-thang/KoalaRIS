@@ -12,28 +12,31 @@ namespace PublicAPI
             Order? order = orderServices.GetOrderById(orderId);
             return Results.Ok(order);
         }
-
         public static IResult MakeOrder(Guid cart, Guid accountId, IOrderServices orderServices)
         {
             Guid orderId = orderServices.CreateOrder(cart, accountId);
             return Results.Ok(orderId);
         }
-
         public static IResult GetAllOrdersOfAnAccount(Guid accountId, IOrderServices ordersServices)
         {
             List<Order> orders = ordersServices.GetAllOrdersOfAnAccount(accountId);
             return Results.Ok(orders);
         }
-
-        public static IResult GetReceipt(Guid orderId, IOrderServices orderServices)
+        public static IResult CompleteOrder(Guid orderId, IOrderServices orderServices)
         {
-            PaymentDetail receipt = orderServices.GetReceipt(orderId);
-            return Results.Ok(receipt);
+            orderServices.CompleteOrder(orderId);
+            return Results.Ok();
         }
-
-
-
-
+        public static IResult AddDeliveryDetail(Guid orderId, string address, string description, IOrderServices orderServices)
+        {
+            orderServices.UpdateDeliveryDetail(orderId, address, description);
+            return Results.Ok();    
+        }
+        public static IResult AddPaymentDetail(Guid orderId, int cardNumber, DateTime expiryDate, int cvc, IOrderServices orderServices)
+        {
+            orderServices.UpdatePaymentDetail(orderId, cardNumber, expiryDate, cvc);
+            return Results.Ok();    
+        }
 
         // CART
         public static IResult InitNewCart(IOrderServices orderServices)
@@ -51,20 +54,11 @@ namespace PublicAPI
             List<Item> items = orderServices.GetAllItemInCart(cartId);
             return Results.Ok(items);
         }
-
         public static IResult RemoveItemFromCart(Guid itemId, Guid cartId, IOrderServices orderServices)
         {
             orderServices.RemoveItemFromCart(cartId, itemId);
             return Results.Ok();
         }
-
-        public static IResult GetAllItems(IOrderServices orderServices)
-        {
-            List<Item> items = orderServices.GetAllItems();  
-            return Results.Ok(items);
-        }
-
-
 
 
         // ITEM 
@@ -72,6 +66,11 @@ namespace PublicAPI
         {
             orderServices.CreateNewItem(name, price, imageUrl);
             return Results.Ok();
+        }
+        public static IResult GetAllItems(IOrderServices orderServices)
+        {
+            List<Item> items = orderServices.GetAllItems();  
+            return Results.Ok(items);
         }
     }
 }
