@@ -96,9 +96,6 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
