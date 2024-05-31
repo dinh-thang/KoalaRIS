@@ -8,16 +8,16 @@ namespace PublicAPI.Endpoints
         // check database for email
         public static IResult Login(string email, IAccountServices accountServices)
         {
-            bool result = accountServices.LogIn(email);
+            Guid id = accountServices.LogIn(email);
 
-            return Results.Ok(result);
+            return Results.Ok(id);
         }
 
         // basically create a new account
         public static IResult SignUp(string username, string email, int phonenumber, AccountType accountType, IAccountServices accountServices)
         {
-            bool result = accountServices.SignUp(username, email, phonenumber, accountType);
-            return Results.Ok(result);
+            Guid id = accountServices.SignUp(username, email, phonenumber, accountType);
+            return Results.Ok(id);
         }
 
         public static IResult GetAllStaffAccount(IAccountServices accountServices)

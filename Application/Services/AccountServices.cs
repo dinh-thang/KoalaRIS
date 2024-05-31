@@ -14,31 +14,29 @@ namespace Application.Services
             _repo = repo;
         }
 
-        public bool SignUp(string userName, string email, int phoneNumber, AccountType accountType) //when signup button is clicked
+        public Guid SignUp(string userName, string email, int phoneNumber, AccountType accountType)
         {
-            //new Account
+            Account newAccount = new Account(userName, email, phoneNumber, accountType);
             try
             {
-                Account newAccount = new Account(userName, email, phoneNumber, accountType);
                 _repo.Add(newAccount);
-                Console.WriteLine("Account created."); //signal GUI sucessful
             }
             catch (ArgumentException ex)
             {
                 throw new ArgumentException($"Failed to create account: {ex.Message}", ex);
             }
-            return true;
+            return newAccount.Id;
         } 
 
-        public bool LogIn(string email)
+        public Guid LogIn(string email)
         {   
             Account? account = _repo.GetByEmail(email);
                 
             if (account == null)
             {
-                return false;
+                throw new ArgumentException($"{email} was not found.");
             }
-            return true;
+            return account.Id;
         }
 
         public List<Account> GetAllCustomer()
