@@ -3,8 +3,21 @@ import './admin.css';
 import { useNavigate } from "react-router-dom";
 import AdminSideBar from "../../components/adminSideBar.jsx";
 import { pageRoutes } from "../../constants/pageRoutes.js";
+import AdminReservationItem from '../../components/AdminReservationItem.jsx';
+import { useState, useRef } from 'react';
 
 const AdminReservation = () => {
+    const [selectedReservation, setSelectedReservation] = useState(null);
+    const sidebarRef = useRef(null);
+    const backdropRef = useRef(null);
+
+    const reservationItem = [
+        { reservation_no: 1904010, customer_name: "Quang Thang", phone_no: 4526182912, email: "abcxyz69@gmail.com",  guest_qty: 69, book_time: "11:09 30/04/2024", time: "02:00PM", date: "31/05/2024", status: "Arrived" },
+        { reservation_no: 1904341, customer_name: "Quang Thang Dinh", phone_no: 8626182912, email: "abcxyz69@gmail.com",  guest_qty: 96, book_time: "11:09 30/04/2024", time: "02:00PM", date: "31/05/2024", status: "Arrived" },
+        { reservation_no: 9104010, customer_name: "Scott Maguire", phone_no: 4526182969, email: "abcxyz69@gmail.com",  guest_qty: 6, book_time: "11:09 30/04/2024", time: "02:00PM", date: "31/05/2024", status: "Arrived" },
+
+    ];
+
     const navigate = useNavigate();
 
     const navigateToAdmin = () => {
@@ -18,23 +31,31 @@ const AdminReservation = () => {
         navigate(pageRoutes.ADMIN_RESERVATION);
     };
 
-    function openSidebar() {
-        const sidebar = document.getElementById('detailSidebar');
-        const backdrop = document.getElementById('backdrop');
-        sidebar.style.display = 'block'; // Make sidebar visible
-        sidebar.style.transform = 'translateX(0)'; // Slide in
-        backdrop.style.display = 'block'; // Show backdrop
+    function openSidebar(reservation) {
+        setSelectedReservation(reservation);
+        setTimeout(() => {
+            const sidebar = sidebarRef.current;
+            const backdrop = backdropRef.current;
+            if (sidebar && backdrop) {
+
+                sidebar.style.transform = 'translateX(0)'; // Slide in
+                sidebar.style.display = 'block'; // Make sidebar visible
+                backdrop.style.display = 'block'; // Show backdrop
+            }
+        }, 0);
     }
 
     // Function to close the sidebar and hide the backdrop
     function closeSidebar() {
-        const sidebar = document.getElementById('detailSidebar');
-        const backdrop = document.getElementById('backdrop');
-        sidebar.style.transform = 'translateX(100%)'; // Slide out
-        setTimeout(() => {
+        setSelectedReservation(null);
+        const sidebar = sidebarRef.current;
+        const backdrop = backdropRef.current;
+        if (sidebar && backdrop) {
+            
+            sidebar.style.transform = 'translateX(100%)'; // Slide out
             sidebar.style.display = 'none';
             backdrop.style.display = 'none';
-        }, 300); // Delay to allow slide out to complete
+        }
     }
 
     return (
@@ -60,70 +81,44 @@ const AdminReservation = () => {
                             </tr>
                         </thead>
                         <tbody class="text-gray-600">
-                            <tr onClick={openSidebar} class="cursor-pointer">
-                                <td class="px-4 py-3">1904010</td>
-                                <td class="px-4 py-3">Quang Thang</td>
-                                <td class="px-4 py-3">69</td>
-                                <td class="px-4 py-3">02:00PM</td>
-                                <td class="px-4 py-3">31/05/2024</td>
-                                <td class="px-4 py-3"><span class="px-10 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 text-white">Arrived</span></td>
-                            </tr>
-                            <tr onClick={openSidebar} class="cursor-pointer">
-                                <td class="px-4 py-3">1904043</td>
-                                <td class="px-4 py-3">Quang Thang</td>
-                                <td class="px-4 py-3">6</td>
-                                <td class="px-4 py-3">03:00PM</td>
-                                <td class="px-4 py-3">31/05/2024</td>
-                                <td class="px-4 py-3"><span class="px-12 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-300 text-white">Late</span></td>
-                            </tr>
-                            <tr onClick={openSidebar} class="cursor-pointer">
-                                <td class="px-4 py-3">1904069</td>
-                                <td class="px-4 py-3">Quang Thang</td>
-                                <td class="px-4 py-3">9</td>
-                                <td class="px-4 py-3">02:00PM</td>
-                                <td class="px-4 py-3">31/05/2024</td>
-                                <td class="px-4 py-3"><span class="px-9 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-white">Cancelled</span></td>
-                            </tr>
-                            <tr onClick={openSidebar} class="cursor-pointer">
-                                <td class="px-4 py-3">1904010</td>
-                                <td class="px-4 py-3">Quang Thang</td>
-                                <td class="px-4 py-3">69</td>
-                                <td class="px-4 py-3">02:00PM</td>
-                                <td class="px-4 py-3">31/05/2024</td>
-                                <td class="px-4 py-3"><span class="px-10 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-300 text-white">Pending</span></td>
-                            </tr>
+                            {reservationItem.map(r => (
+                                <AdminReservationItem key={r.reservation_no} {...r} onClick={() => openSidebar(r)} />
+                            ))}
                         </tbody>
                     </table>
                 </div>
             </div>
 
             {/* Detailed Sidebar */}
-            <div id="detailSidebar" class="w-96 bg-white p-8 shadow-lg fixed right-0 top-0 h-full z-50">
-                <div class="flex justify-between items-center">
-                    <h2 class="font-bold text-xl">Reserve</h2>
-                    <button onClick={closeSidebar}>X</button>
-                </div>
-                <h2 class="font-bold text-xl mb-6">3004019</h2>
-                <div>
-                    <h3 class="font-bold mb-4">Customer Detail</h3>
-                    <p>Customer: Quang Thang</p>
-                    <p class="mb-5">Booking time: 11:09 30/04/2024</p>
-                    <p>Phone Number: 0412345678</p>
-                    <p>Email: abc@gmail.com</p>
-                </div>
-                <div class="mt-4">
-                    <h3 class="font-bold mb-4">Booking Detail</h3>
-                    <p>Size: 5</p>
-                    <p>Time: 17:00</p>
-                    <p>Date: 30/04/2024</p>
-                    <div class="mt-10">
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full">Check-in</button>
-                        <button class="mt-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded w-full">Cancel Booking</button>
+            {selectedReservation && (
+                <div id="detailSidebar" ref={sidebarRef} class="w-96 bg-white p-8 shadow-lg fixed right-0 top-0 h-full z-50">
+                    <div class="flex justify-between items-center">
+                        <h2 class="font-bold text-xl">Reserve</h2>
+                        <button onClick={closeSidebar}>X</button>
+                    </div>
+                    <h2 class="font-bold text-xl mb-6">{selectedReservation.reservation_no}</h2>
+                    <div>
+                        <h3 class="font-bold mb-4">Customer Detail</h3>
+                        <p>Customer: {selectedReservation.customer_name}</p>
+                        <p class="mb-5">Booking time: {selectedReservation.book_time}</p>
+                        <p>Phone Number: {selectedReservation.phone_no}</p>
+                        <p>Email: {selectedReservation.email}</p>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-bold mb-4">Booking Detail</h3>
+                        <p>Size: {selectedReservation.guest_qty}</p>
+                        <p>Time: {selectedReservation.time}</p>
+                        <p>Date: {selectedReservation.date}</p>
+                        <div class="mt-10">
+                            <button class="bg-red hover:bg-green-500 text-white font-bold py-2 px-4 rounded w-full">Check-in</button>
+                            <button class="mt-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded w-full">Cancel Booking</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
+            
 
-            <div id="backdrop" class="backdrop" onClick={closeSidebar}></div>
+            <div id="backdrop" ref={backdropRef} class="backdrop" onClick={closeSidebar}></div>
         </div>
     )
 }
