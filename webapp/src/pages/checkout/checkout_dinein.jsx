@@ -4,7 +4,7 @@ import cards from '../../images/cards.png';
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from '../../constants/pageRoutes.js';
 
-const Checkout = () => {
+const CheckOutDineIn = () => {
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -123,28 +123,6 @@ const Checkout = () => {
           </div>
         </div>
 
-        {/* Delivery Details */}
-        <div className="mb-6">
-          <h2 className="font-semibold mb-4">Delivery Details</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="address"
-              placeholder="Address"
-              className="border p-2 rounded w-full"
-              value={formValues.address}
-              onChange={handleChange}
-            />
-            <textarea
-              name="deliveryNotes"
-              placeholder="Delivery Notes"
-              className="border p-2 rounded w-full col-span-2"
-              value={formValues.deliveryNotes}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
         {/* Payment Type */}
         <div className="mb-6">
         <h2 className="font-semibold mb-4">Payment Type</h2>
@@ -181,8 +159,8 @@ const Checkout = () => {
                 </label>
             </div>
             {formErrors.paymentType && (
-                <p className="text-red text-sm">{formErrors.paymentType}</p>
-                )}
+              <p className="text-red text-sm">{formErrors.paymentType}</p>
+            )}
         </div>
 
         {/* Payment Detail */}
@@ -228,4 +206,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default CheckOutDineIn;
