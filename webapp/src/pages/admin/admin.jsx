@@ -17,15 +17,17 @@ const Admin = () => {
         navigate(pageRoutes.ADMIN_RESERVATION);
     };
 
-    // useEffect(() => {
-    //     fetch("http://localhost:5296/item/get-all")
-    //       .then(res => res.json())
-    //       .then(data => {
-    //         console.log(data);
-    //         setMenuItems(data);
-    //       })
-    //       .catch(error => console.error('Error fetching data:', error));
-    //   }, []);
+    const [totalSale, setTotalSale] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:5296/admin/get-total-sale-today")
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            setTotalSale(data);
+          })
+          .catch(error => console.error('Error fetching data:', error));
+      }, []);
 
 
     return (
@@ -58,7 +60,7 @@ const Admin = () => {
             <div class="grid grid-cols-3 gap-4 mb-5">
                 <div class="bg-white p-5 shadow rounded">
                     <h2 class="font-bold mb-3">Summary</h2>
-                    <p>Today's Sale: $50</p>
+                    <p>Today's Sale: {totalSale}</p>
                     <p>Total Dine In Order: 1220</p>
                     <p>Total Guest: 12343</p>
                 </div>
