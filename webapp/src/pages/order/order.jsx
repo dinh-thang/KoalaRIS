@@ -1,7 +1,8 @@
 import MenuItem from '../../components/MenuItem.jsx';
+import { React, useState, useEffect } from "react";
 import Cart from "../../components/Cart.jsx";
+import { apiRoutes } from "../../constants/apiRoutes.js";
 
-import { useState, useEffect } from "react";
 
 const Order = () => {
 
@@ -9,13 +10,17 @@ const Order = () => {
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-      fetch("http://localhost:5296/item/get-all")
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
+      async function get() {
+        try {
+          const response = await fetch(apiRoutes.HTTP + apiRoutes.ITEM_GET_ALL);
+          const data = await response.json();
           setMenuItems(data);
-        })
-        .catch(error => console.error('Error fetching data:', error));
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+      
+      get();
     }, []);
 
     const [cartItems, setCartItems] = useState([]);

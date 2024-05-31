@@ -26,7 +26,7 @@ namespace Application.Services
             {
                 throw new ArgumentException("Cant find account with id:" + accountId.ToString());
             }
-            
+
             if (account.AccountType != AccountType.Staff)
             {
                 return false;
@@ -102,5 +102,6 @@ namespace Application.Services
             }
             return total;
         }
+
     }
 }
