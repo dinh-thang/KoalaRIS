@@ -1,6 +1,9 @@
 import MenuItem from '../../components/MenuItem.jsx';
 import { React, useState, useEffect } from "react";
+import bibimbap from "../../images/bibimbap.jpg";
 import Cart from "../../components/Cart.jsx";
+
+import { useState, useEffect } from "react";
 
 const Order = () => {
 
