@@ -21,7 +21,7 @@ const Cart = ({ cartItems, removeFromCart }) => {
           {cartItems.map((item, index) => (
             <CartItem 
               item={item} 
-              onRemove={() => removeFromCart(index)} 
+              onRemove={() => removeFromCart(index, item)}
             />
           ))}
         </ul>

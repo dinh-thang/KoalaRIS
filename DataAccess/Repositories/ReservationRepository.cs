@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Repos;
 using Application.Entities;
 using DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories
 {
@@ -30,17 +31,22 @@ namespace DataAccess.Repositories
 
         public List<Reservation> GetAll()
         {
-            return _db.Reservations.ToList();
+            return _db.Reservations
+                .Include(a => a.Account)
+                .ToList();
         }
 
         public List<Reservation> GetAllByAccountId(Guid accountId)
         {
-            return _db.Reservations.Where(a => a.Account.Id == accountId).ToList();
+            return _db.Reservations
+                .Include(a => a.Account)
+                .Where(a => a.Account.Id == accountId).ToList();
         }
 
         public Reservation? GetById(Guid id)
         {
-            return _db.Reservations.Single(r => r.Id == id);
+            return _db.Reservations
+                .Include(a => a.Account).Single(r => r.Id == id);
         }
 
         public void Update(Reservation updateReservation)

@@ -2,54 +2,57 @@ import MenuItem from '../../components/MenuItem.jsx';
 import { React, useState, useEffect } from "react";
 import Cart from "../../components/Cart.jsx";
 import { apiRoutes } from "../../constants/apiRoutes.js";
+import Cookies from "js-cookies";
 
 const Order = () => {
     const [menuItems, setMenuItems] = useState([]);
+    const [temp, setTemp] = useState();
 
     useEffect(() => {
-      // fetch("http://localhost:5000/item/get-all-items")
-      //   .then(res => res.json())
-      //   .then(data => {
-      //     console.log(data);
-      //     setMenuItems(data);
-      //   } catch (error) {
-      //     console.error('Error fetching data:', error);
-      //   }
-      // }
-      
-      // get();
+        fetchOrders().then();
+        startCart().then();
     }, []);
+
+    const startCart = async () => {
+        await fetch(`${apiRoutes.HTTP}${apiRoutes.CART_INIT}`)
+            .then(res => res.json())
+            .then(data => {
+                Cookies.setItem("cartId", data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    const fetchOrders = async () => {
+        await fetch(`${apiRoutes.HTTP}${apiRoutes.ITEM_GET_ALL}`)
+            .then(res => res.json())
+            .then(data => {
+                setMenuItems(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
 
     const [cartItems, setCartItems] = useState([]);
 
-    const [cartId, setCartId] = useState(null);
-
-    const initializeCart = async () => {
-      try {
-        const response = await fetch(apiRoutes.HTTP + apiRoutes.CART_INIT);
-    
-        if (!response.ok) {
-          throw new Error(`Failed to initialize cart: ${response.status} ${response.statusText}`);
-        }
-    
-        const data = await response.json();
-        if (!data || !data) {
-          throw new Error('Invalid cart initialization response');
-        }
-        console.log('Cart initialized:', data);
-        setCartId(data);
-      } catch (error) {
-        console.error('Error initializing cart:', error);
-      }
-    };
-    const addToCart = (menuItem) => {
+    const addToCart = async (menuItem) => {
       setCartItems([...cartItems, menuItem]);
+      console.log(menuItem)
+        console.log(Cookies.getItem("cartId"))
+      await fetch(`${apiRoutes.HTTP}${apiRoutes.CART_ADD_ITEM}?itemId=${menuItem.id}&cartId=${Cookies.getItem("cartId")}`)
+          .then(res => res.json())
+          .catch(error => console.error('Error fetching data:', error.message));
     };
 
-    const removeFromCart = (index) => {
+    const removeFromCart = async (index, item) => {
         const newCartItems = [...cartItems];
         newCartItems.splice(index, 1);
         setCartItems(newCartItems);
+
+        await fetch(`${apiRoutes.HTTP}${apiRoutes.CART_REMOVE_ITEM}?cartId=${Cookies.getItem("cartId")}&itemId=${item.id}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
     };
     const isCartVisible = cartItems.length > 0;
 

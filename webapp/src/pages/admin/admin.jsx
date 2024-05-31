@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import AdminSideBar from "../../components/adminSideBar.jsx";
 import apiRoutes from '../../constants/apiRoutes.js';
 import Cookies from "js-cookies";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const Admin = () => {
 	const [totalDinein, setTotalDinein] = useState([]);
@@ -96,20 +95,20 @@ const Admin = () => {
                         </tr>
                     </thead>
                     <tbody>
-											{tableData.map((row, index) => (
-												<tr key={index} className="mb-3">
-													<td>{row.id}</td>
-													<td>{row.account.name}</td>
-													<td>
-														<span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red text-red-800">
-															{row.deliveryDetail === null ? "Dine In" : "Delivery"}
-														</span>
-													</td>
-													<td>{row.account.name}</td>
-													<td>{row.quantity}</td>
-													<td>{row.price}</td>
-												</tr>
-											))}
+						{tableData.map((row, index) => (
+							<tr key={index} className="mb-3">
+								<td>{row.id}</td>
+								<td>{row.account.name}</td>
+								<td>
+									<span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red text-red-800">
+										{row.deliveryDetail === null ? "Dine In" : "Delivery"}
+									</span>
+								</td>
+								<td>{row.account.name}</td>
+								<td>{row.quantity}</td>
+								<td>{row.price}</td>
+							</tr>
+						))}
                     </tbody>
                 </table>
                 <div className="flex justify-center">

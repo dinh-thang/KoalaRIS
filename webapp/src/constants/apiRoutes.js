@@ -7,7 +7,7 @@ export const apiRoutes = {
     MAKE_BOOKING: "/booking/make-booking",
     UPDATE_BOOKING: "/booking/update-booking",
     CANCEL_BOOKING: "/booking/cancel-booking",
-    GET_ALL_BOOKINGS: "/booking/get-all-bookings",
+    GET_ALL_BOOKINGS: "/booking/get-all-booking",
 
     ADMIN_GET_ALL_BOOKINGS: "/admin/get-all-booking",
     ADMIN_GET_TOTAL_SALE_TODAY: "/admin/get-total-sale-today",

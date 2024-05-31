@@ -25,6 +25,7 @@ namespace DataAccess.Repositories
         {
             return _db.Orders
                 .Include(c => c.Cart)
+                .Include(i => i.Cart.Items)
                 .Include(a => a.Account)
                 .ToList();
         }
@@ -34,6 +35,7 @@ namespace DataAccess.Repositories
             return _db.Orders
                 .Include(c => c.Cart)
                 .Include(a => a.Account)
+                .Include(i => i.Cart.Items)
                 .Where(o => o.Account.Id == accountId)
                 .ToList();
         }
