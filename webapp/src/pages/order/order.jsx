@@ -5,8 +5,6 @@ import { apiRoutes } from "../../constants/apiRoutes.js";
 
 
 const Order = () => {
-
-    // Replace this with DB
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
@@ -25,8 +23,28 @@ const Order = () => {
 
     const [cartItems, setCartItems] = useState([]);
 
+    const [cartId, setCartId] = useState(null);
+
+    const initializeCart = async () => {
+      try {
+        const response = await fetch(apiRoutes.HTTP + apiRoutes.CART_INIT);
+    
+        if (!response.ok) {
+          throw new Error(`Failed to initialize cart: ${response.status} ${response.statusText}`);
+        }
+    
+        const data = await response.json();
+        if (!data || !data) {
+          throw new Error('Invalid cart initialization response');
+        }
+        console.log('Cart initialized:', data);
+        setCartId(data);
+      } catch (error) {
+        console.error('Error initializing cart:', error);
+      }
+    };
     const addToCart = (menuItem) => {
-        setCartItems([...cartItems, menuItem]);
+      setCartItems([...cartItems, menuItem]);
     };
 
     const removeFromCart = (index) => {
@@ -34,8 +52,6 @@ const Order = () => {
         newCartItems.splice(index, 1);
         setCartItems(newCartItems);
     };
-
-
     const isCartVisible = cartItems.length > 0;
 
   return (

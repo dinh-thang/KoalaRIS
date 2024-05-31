@@ -2,6 +2,7 @@ import dinein from '../../images/dinein.png';
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../../constants/pageRoutes.js";
 import { React, useState, useEffect } from "react";
+import { apiRoutes } from "../../constants/apiRoutes.js";
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -16,58 +17,47 @@ const Admin = () => {
     const navigateToAdminReservation = () => {
         navigate(pageRoutes.ADMIN_RESERVATION);
     };
-
-    const [totalSale, setTotalSale] = useState([]);
-
-    useEffect(() => {
-        fetch("http://localhost:5296/admin/get-total-sale-today")
-          .then(res => res.json())
-          .then(data => {
-            console.log(data);
-            setTotalSale(data);
-          })
-          .catch(error => console.error('Error fetching data:', error));
-      }, []);
+    
 
 
     return (
-    <div class="flex min-h-screen">
+    <div className="flex min-h-screen">
         {/* Sidebar */}
-        <div class="w-32 bg-white shadow-lg flex flex-col justify-between">
-            <div class="p-5">
-                <button class="p-2 my-2 w-full bg-blue-500 text-white rounded text-left hover:bg-blue-600" onClick={navigateToAdmin}>
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>    
+        <div className="w-32 bg-white shadow-lg flex flex-col justify-between">
+            <div className="p-5">
+                <button className="p-2 my-2 w-full bg-blue-500 text-white rounded text-left hover:bg-blue-600" onClick={navigateToAdmin}>
+                    <img src={dinein} alt="Home" className="w-6 h-6 text-white"></img>    
                 </button> 
-                <button class="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdminOrder}>
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
+                <button className="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdminOrder}>
+                    <img src={dinein} alt="Home" className="w-6 h-6 text-white"></img>
                 </button>
-                <button class="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdminReservation}>
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
+                <button className="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdminReservation}>
+                    <img src={dinein} alt="Home" className="w-6 h-6 text-white"></img>
                 </button>
             </div>
-            <div class="p-5">
-                <button class="p-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300">
-                    <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
+            <div className="p-5">
+                <button className="p-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300">
+                    <img src={dinein} alt="Home" className="w-6 h-6 text-white"></img>
                 </button>
             </div>
         </div>
 
         {/* Main Content */}
-        <div class="flex-1 p-8">
-            <h1 class="font-bold text-2xl mb-5">Admin Page</h1>
+        <div className="flex-1 p-8">
+            <h1 className="font-bold text-2xl mb-5">Admin Page</h1>
 
             {/* Summary Section */}
-            <div class="grid grid-cols-3 gap-4 mb-5">
-                <div class="bg-white p-5 shadow rounded">
-                    <h2 class="font-bold mb-3">Summary</h2>
-                    <p>Today's Sale: {totalSale}</p>
+            <div className="grid grid-cols-3 gap-4 mb-5">
+                <div className="bg-white p-5 shadow rounded">
+                    <h2 className="font-bold mb-3">Summary</h2>
+                    <p>Today's Sale:</p>
                     <p>Total Dine In Order: 1220</p>
                     <p>Total Guest: 12343</p>
                 </div>
 
                 {/* Best Seller Meal Section */}
-                <div class="col-span-2 bg-white p-5 shadow rounded">
-                    <h2 class="font-bold mb-3">Best Seller Meal</h2>
+                <div className="col-span-2 bg-white p-5 shadow rounded">
+                    <h2 className="font-bold mb-3">Best Seller Meal</h2>
                     <p>Bibimbap: 123</p>
                     <p>Tokkboki: 154</p>
                     <p>Fries: 172</p>
@@ -75,9 +65,9 @@ const Admin = () => {
             </div>
 
             {/* Orders Section */}
-            <div class="bg-white p-5 shadow rounded">
-                <h2 class="font-bold mb-3">Orders</h2>
-                <table class="w-full text-left mb-4">
+            <div className="bg-white p-5 shadow rounded">
+                <h2 className="font-bold mb-3">Orders</h2>
+                <table className="w-full text-left mb-4">
                     <thead>
                         <tr>
                             <th>Order No.</th>
@@ -90,26 +80,26 @@ const Admin = () => {
                     </thead>
                     <tbody>
                         {/* Sample Row */}
-                        <tr class="mb-3">
+                        <tr className="mb-3">
                             <td>1904012</td>
                             <td>Quang Thang</td>
-                            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Dine In</span></td>
+                            <td><span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Dine In</span></td>
                             <td>5</td>
                             <td>1</td>
                             <td>$23</td>
                         </tr>
-                        <tr class="mb-3">
+                        <tr className="mb-3">
                             <td>1904010</td>
                             <td>Quang Thang</td>
-                            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Dine In</span></td>
+                            <td><span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Dine In</span></td>
                             <td>5</td>
                             <td>1</td>
                             <td>$23</td>
                         </tr>
-                        <tr class="mb-3">
+                        <tr className="mb-3">
                             <td>1904010</td>
                             <td>Quang Thang</td>
-                            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Dine In</span></td>
+                            <td><span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Dine In</span></td>
                             <td>5</td>
                             <td>1</td>
                             <td>$23</td>
@@ -117,8 +107,8 @@ const Admin = () => {
                         {/* Additional rows would be similar */}
                     </tbody>
                 </table>
-                <div class="flex justify-center">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">More</button>
+                <div className="flex justify-center">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">More</button>
                 </div>
             </div>
         </div>
