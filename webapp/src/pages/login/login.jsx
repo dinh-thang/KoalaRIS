@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
 
   const navigate = useNavigate();
+  
   const navigateToHome = () => {
     navigate(pageRoutes.HOME);
   };

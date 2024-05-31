@@ -1,6 +1,7 @@
 import dinein from '../../images/dinein.png';
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../../constants/pageRoutes.js";
+import { React, useState, useEffect } from "react";
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -15,6 +16,17 @@ const Admin = () => {
     const navigateToAdminReservation = () => {
         navigate(pageRoutes.ADMIN_RESERVATION);
     };
+
+    // useEffect(() => {
+    //     fetch("http://localhost:5296/item/get-all")
+    //       .then(res => res.json())
+    //       .then(data => {
+    //         console.log(data);
+    //         setMenuItems(data);
+    //       })
+    //       .catch(error => console.error('Error fetching data:', error));
+    //   }, []);
+
 
     return (
     <div class="flex min-h-screen">

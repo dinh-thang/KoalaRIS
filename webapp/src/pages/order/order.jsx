@@ -1,6 +1,5 @@
 import MenuItem from '../../components/MenuItem.jsx';
 import { React, useState, useEffect } from "react";
-import bibimbap from "../../images/bibimbap.jpg";
 import Cart from "../../components/Cart.jsx";
 
 const Order = () => {
@@ -9,7 +8,7 @@ const Order = () => {
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-      fetch("http://localhost:5296/item/get-all")
+      fetch("http://localhost:5296/item/get-all-items")
         .then(res => res.json())
         .then(data => {
           console.log(data);
