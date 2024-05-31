@@ -3,14 +3,17 @@ import './admin.css';
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../../constants/pageRoutes.js";
 import AdminOrderItem from '../../components/AdminOrderItem.jsx';
+import { useState, useRef } from 'react';
 
 const AdminOrder = () => {
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const sidebarRef = useRef(null);
+    const backdropRef = useRef(null);
 
     const orderItems = [
-        { order_no: 1904010, customer_name: "Quang Thang", method: "Take Away", table_no: 5, meal_no: 1, bill: "$23" },
-        { order_no: 1904010, customer_name: "Quang Thang", method: "Take Away", table_no: 5, meal_no: 1, bill: "$23" },
-        { order_no: 1904010, customer_name: "Quang Thang", method: "Take Away", table_no: 5, meal_no: 1, bill: "$23" },
-
+        { order_no: 1904010, order_time: "11:09 29/03/2023", customer_name: "Quang Thang", phone_no: 4123045678, email: "abcxyz@gmail.com", method: "Take Away", table_no: 5, meal_no: 1, meal: [{ item_name: "fries", item_qty: 2, price: 29  },], bill: "$23" },
+        { order_no: 1904011, order_time: "11:09 29/03/2023", customer_name: "Lachlan Vu", phone_no: 4123045678, email: "abcxyz@gmail.com", method: "Dine In", table_no: 2, meal_no: 1, meal: [{ item_name: "fries", item_qty: 2, price: 29  },], bill: "$45" },
+        { order_no: 1904012, order_time: "11:09 29/03/2023", customer_name: "Dat Le", phone_no: 4123045678, email: "abcxyz@gmail.com", method: "Delivery", table_no: 12, meal_no: 1, meal: [{ item_name: "fries", item_qty: 2, price: 29  },], bill: "$67" },
     ];
 
     const navigate = useNavigate();
@@ -21,31 +24,38 @@ const AdminOrder = () => {
     const navigateToAdminOrder = () => {
         navigate(pageRoutes.ADMIN_ORDER);
     };
-    
     const navigateToAdminReservation = () => {
         navigate(pageRoutes.ADMIN_RESERVATION);
     };
 
     // Open the sidebar and show the backdrop
-    function openSidebar() {
-        const sidebar = document.getElementById('detailSidebar');
-        const backdrop = document.getElementById('backdrop');
-        sidebar.style.transform = 'translateX(0)'; // Slide in
+    function openSidebar(order) {
+        setSelectedOrder(order);
         setTimeout(() => {
-            sidebar.style.display = 'block'; // Make sidebar visible
-            backdrop.style.display = 'block'; // Show backdrop
-        }, 300); // Delay to allow slide in to complete
+            const sidebar = sidebarRef.current;
+            const backdrop = backdropRef.current;
+            if (sidebar && backdrop) {
+
+                sidebar.style.transform = 'translateX(0)'; // Slide in
+                sidebar.style.display = 'block'; // Make sidebar visible
+                backdrop.style.display = 'block'; // Show backdrop
+
+            }
+        }, 0);
     }
 
     // Close the sidebar and hide the backdrop
     function closeSidebar() {
-        const sidebar = document.getElementById('detailSidebar');
-        const backdrop = document.getElementById('backdrop');
-        sidebar.style.transform = 'translateX(100%)'; // Slide out
-        setTimeout(() => {
+        setSelectedOrder(null);
+        const sidebar = sidebarRef.current;
+        const backdrop = backdropRef.current;
+        if (sidebar && backdrop) {
+            
+            sidebar.style.transform = 'translateX(100%)'; // Slide out
             sidebar.style.display = 'none';
             backdrop.style.display = 'none';
-        }, 300); // Delay to allow slide out to complete
+            
+        }
     }
 
     return (
@@ -88,39 +98,44 @@ const AdminOrder = () => {
                             </tr>
                         </thead>
                         <tbody class="text-gray-600">
-                            {orderItems.map(item => (<AdminOrderItem {...item} onClick={openSidebar}/>) )}
+                            {orderItems.map(item => (
+                                <AdminOrderItem key={item.order_no} {...item} onClick={() => openSidebar(item)} />
+                            ))}
                         </tbody>
                     </table>
                 </div>
             </div>
 
-
             {/* Detail Sidebar (Initially hidden) */}
-            <div id="detailSidebar" class="w-96 bg-white p-8 shadow-lg fixed right-0 top-0 h-full z-50">
-                <div class="flex justify-between items-center">
-                    <h2 class="font-bold text-xl">Order</h2>
-                    <button onClick={closeSidebar}>X</button>
+            {selectedOrder && (
+                <div id="detailSidebar" ref={sidebarRef} class="w-96 bg-white p-8 shadow-lg fixed right-0 top-0 h-full z-50">
+                    <div class="flex justify-between items-center">
+                        <h2 class="font-bold text-xl">Order</h2>
+                        <button onClick={closeSidebar}>X</button>
+                    </div>
+                    <h2 class="font-bold text-xl mb-6">{selectedOrder.order_no}</h2>
+                    <div>
+                        <h3 class="font-bold mb-5">Customer Detail</h3>
+                        <p>Customer: {selectedOrder.customer_name}</p>
+                        <p>Table: {selectedOrder.table_no}</p>
+                        <p class="mb-5">Order time: {selectedOrder.order_time}</p>
+                        <p>Phone Number: {selectedOrder.phone_no}</p>
+                        <p>Email: {selectedOrder.email}</p>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-bold mb-5">Meals</h3>
+                        <ul>
+                            {selectedOrder.meal.map((meal) => (
+                                <li>{meal.item_qty} x {meal.item_name}: {meal.price}</li>
+                            ))}
+                        </ul>
+                        <hr class="mt-5 mb-5"></hr>
+                        <p class="font-bold">Order Total: {selectedOrder.bill}</p>
+                    </div>
                 </div>
-                <h2 class="font-bold text-xl mb-6">3004019</h2>
-                <div>
-                    <h3 class="font-bold mb-5">Customer Detail</h3>
-                    <p>Customer: Quang Thang</p>
-                    <p>Table: 09</p>
-                    <p class="mb-5">Order time: 11:09 30/04/2024</p>
-                    <p>Phone Number: 0412345678</p>
-                    <p>Email: abc@gmail.com</p>
-                </div>
-                <div class="mt-4">
-                    <h3 class="font-bold mb-5">Meals</h3>
-                    <p>1x Bibimbap: $29</p>
-                    <p>1x Fries: $38</p>
-                    <p>1x Hamburger: $10</p>
-                    <hr class="mt-5 mb-5"></hr>
-                    <p class="font-bold">Order Total: $100</p>
-                </div>
-            </div>
+            )}
 
-            <div id="backdrop" class="backdrop" onClick={closeSidebar}></div>
+            <div id="backdrop" ref={backdropRef} class="backdrop" onClick={closeSidebar}></div>
         </div>
     )
 }
