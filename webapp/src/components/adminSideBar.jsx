@@ -1,5 +1,4 @@
-import React from 'react';
-import dinein from '../images/dinein.png';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { pageRoutes } from "../constants/pageRoutes.js";
 import homeIcon from "../images/home.svg";
@@ -7,18 +6,19 @@ import reserveIcon from "../images/reservation.svg";
 import orderIcon from "../images/order.svg";
 import logoutIcon from "../images/logout.svg";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+    const [accountId, setAccountId] = useState(props);
     const location = useLocation();
     const navigate = useNavigate();
   
     const navigateToAdmin = () => {
-      navigate(pageRoutes.ADMIN);
+      navigate(pageRoutes.ADMIN, {state: props});
     };
     const navigateToAdminOrder = () => {
-      navigate(pageRoutes.ADMIN_ORDER);
+      navigate(pageRoutes.ADMIN_ORDER, {state: props});
     };
     const navigateToAdminReservation = () => {
-      navigate(pageRoutes.ADMIN_RESERVATION);
+      navigate(pageRoutes.ADMIN_RESERVATION, {state: props});
     };
   
     const isActive = (path) => location.pathname === path;

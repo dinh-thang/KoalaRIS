@@ -9,17 +9,17 @@ const Order = () => {
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-      fetch("http://localhost:5000/item/get-all-items")
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          setMenuItems(data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      }
+      // fetch("http://localhost:5000/item/get-all-items")
+      //   .then(res => res.json())
+      //   .then(data => {
+      //     console.log(data);
+      //     setMenuItems(data);
+      //   } catch (error) {
+      //     console.error('Error fetching data:', error);
+      //   }
+      // }
       
-      get();
+      // get();
     }, []);
 
     const [cartItems, setCartItems] = useState([]);

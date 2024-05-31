@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import Cookies from "js-cookies";
+
 import logo from '../../images/logo.png';
 import back from '../../images/back.png';
 
@@ -7,10 +9,9 @@ import { apiRoutes } from '../../constants/apiRoutes';
 import { pageRoutes } from '../../constants/pageRoutes.js';
 import { useNavigate } from "react-router-dom";
 
+
 const Login = () => {
-
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
 
   async function SignUp() {    
@@ -35,8 +36,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     const result = await SignUp();
+
     if (result.success) {
-      navigate(result.isAdmin ? pageRoutes.ADMIN : pageRoutes.ORDER, { state: { userData: result.data } });
+      if (result.isAdmin) {
+        Cookies.setItem("accountId", result.data);
+        navigate(pageRoutes.ADMIN, {state: result.data});
+      } else {
+        Cookies.setItem("accountId", result.data);
+        navigate(pageRoutes.ORDER, {state: result.data});
+      }
     }
   };
 
