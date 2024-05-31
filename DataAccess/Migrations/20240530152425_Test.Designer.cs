@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240530152425_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,12 +99,6 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -129,60 +126,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("AccountId");
 
                     b.ToTable("Reservations");
-                });
-
-            modelBuilder.Entity("Application.ValueObjects.DeliveryDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("DeliveryDetail");
-                });
-
-            modelBuilder.Entity("Application.ValueObjects.PaymentDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CVC")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CardNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("TransactionTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("PaymentDetail");
                 });
 
             modelBuilder.Entity("CartItem", b =>
@@ -229,24 +172,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("Application.ValueObjects.DeliveryDetail", b =>
-                {
-                    b.HasOne("Application.Entities.Ordering.Order", null)
-                        .WithOne("DeliveryDetail")
-                        .HasForeignKey("Application.ValueObjects.DeliveryDetail", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Application.ValueObjects.PaymentDetail", b =>
-                {
-                    b.HasOne("Application.Entities.Ordering.Order", null)
-                        .WithOne("PaymentDetail")
-                        .HasForeignKey("Application.ValueObjects.PaymentDetail", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CartItem", b =>
                 {
                     b.HasOne("Application.Entities.Ordering.Cart", null)
@@ -265,11 +190,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Application.Entities.Ordering.Order", b =>
                 {
                     b.Navigation("Cart")
-                        .IsRequired();
-
-                    b.Navigation("DeliveryDetail");
-
-                    b.Navigation("PaymentDetail")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

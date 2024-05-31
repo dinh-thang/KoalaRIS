@@ -1,12 +1,15 @@
 import React from "react";
 import logo from '../../images/logo.png';
 import back from '../../images/back.png';
+
 import { pageRoutes } from '../../constants/pageRoutes.js';
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 const Login = () => {
 
   const navigate = useNavigate();
+  
   const navigateToHome = () => {
     navigate(pageRoutes.HOME);
   };
@@ -35,14 +38,7 @@ const Login = () => {
               />
             </div>
             
-            <div className="flex items-center justify-center">
-              <button
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-                type="button"
-              >
-                Login
-              </button>
-            </div>
+            <PrimaryButton label="Login"/>
           </form>
         </div>
       </div>

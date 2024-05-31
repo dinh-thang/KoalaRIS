@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = ({ cartItems, removeFromCart }) => {
 
   const navigate = useNavigate();
+  
   const navigateToCheckOut = () => {
     navigate(pageRoutes.CHECKOUT);
   };
