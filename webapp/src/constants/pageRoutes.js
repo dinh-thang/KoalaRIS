@@ -7,4 +7,5 @@ export const pageRoutes = {
     ADMIN: '/admin/dashboard',
     ADMIN_ORDER: '/admin/order',
     ADMIN_RESERVATION: '/admin/reservation',
+    RESERVATION: '/reserve',
 }
