@@ -1,6 +1,7 @@
 import dinein from '../../images/dinein.png';
 import './admin.css';
 import { useNavigate } from "react-router-dom";
+import AdminSideBar from "../../components/adminSideBar.jsx";
 import { pageRoutes } from "../../constants/pageRoutes.js";
 
 const AdminReservation = () => {
@@ -39,24 +40,7 @@ const AdminReservation = () => {
     return (
         <div class="flex min-h-screen">
             {/* Sidebar */}
-            <div class="w-32 bg-white shadow-lg flex flex-col justify-between">
-                <div class="p-5">
-                    <button class="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdmin}>
-                        <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
-                    </button>
-                    <button class="p-2 my-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300" onClick={navigateToAdminOrder}>
-                        <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
-                    </button>
-                    <button class="p-2 my-2 w-full bg-blue-500 text-white rounded text-left hover:bg-blue-600" onClick={navigateToAdminReservation}>
-                        <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>    
-                    </button> 
-                </div>
-                <div class="p-5">
-                    <button class="p-2 w-full bg-gray-200 rounded text-left hover:bg-gray-300">
-                        <img src={dinein} alt="Home" class="w-6 h-6 text-white"></img>
-                    </button>
-                </div>
-            </div>
+            <AdminSideBar />
 
             {/* Main Content */}
             <div class="flex-1 p-8">

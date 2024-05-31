@@ -5,6 +5,8 @@ import back from '../../images/back.png';
 import { pageRoutes } from '../../constants/pageRoutes.js';
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
+import {useEffect} from "react";
+import apiRoutes from "../../constants/apiRoutes.js";
 
 const Login = () => {
 
@@ -13,6 +15,13 @@ const Login = () => {
   const navigateToHome = () => {
     navigate(pageRoutes.HOME);
   };
+
+  useEffect(() => {
+    async function get() {
+      const data = await fetch(apiRoutes.HTTP + apiRoutes.ITEM_GET_ALL);
+    }
+    get().then();
+  }, []);
 
   return (
     <div className="bg-white flex flex-col h-screen">
